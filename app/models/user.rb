@@ -7,5 +7,21 @@ class User < ApplicationRecord
          :rememberable,
          :validatable
 
+  before_destroy :nullify_dependents
+
   has_many :posts, inverse_of: :creator, dependent: false
+
+  private
+
+  def nullify_dependents
+    dependents.each do |dependent|
+      send(dependent)&.update_all(user_id: nil)
+    end
+  end
+
+  def dependents
+    User.reflect_on_all_associations(:has_many).map do |association|
+      association.name if association&.options&.[](:dependent) == false
+    end
+  end
 end
