@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :post do
-    user { nil }
-    content { "MyString" }
+    association :creator, factory: :user
+    content { Faker::Lorem.paragraph }
   end
 end

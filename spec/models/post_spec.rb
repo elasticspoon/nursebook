@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:post) { create(:post) }
+  subject { post }
+  describe 'Associations' do
+    it { should belong_to(:creator).inverse_of(:posts).class_name('User') }
+  end
 end
