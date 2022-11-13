@@ -9,7 +9,10 @@ class User < ApplicationRecord
 
   before_destroy :nullify_dependents
 
-  has_many :posts, inverse_of: :creator, dependent: false
+  has_many :posts, inverse_of: :creator, dependent: false, counter_cache: :posts_cache
+
+  has_many :user_liked_posts, dependent: :destroy, inverse_of: :user, class_name: 'LikedPost'
+  has_many :liked_posts, through: :user_liked_posts, source: :post, counter_cache: :liked_posts_cache
 
   private
 
@@ -21,7 +24,7 @@ class User < ApplicationRecord
   end
 
   def dependents
-    User.reflect_on_all_associations(:has_many).map do |association|
+    User.reflect_on_all_associations(:has_many).filter_map do |association|
       association.name if association&.options&.[](:dependent) == false
     end
   end
