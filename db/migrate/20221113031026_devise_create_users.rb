@@ -14,6 +14,15 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       ## Rememberable
       t.datetime :remember_created_at
 
+      ## Counter Caches (including future ones)
+      t.integer :posts_cache, default: 0
+      t.integer :comments_cache, default: 0
+      t.integer :liked_posts_cache, default: 0
+      t.integer :liked_comments_cache, default: 0
+      t.integer :friends_cache, default: 0
+      t.integer :friend_requests_cache, default: 0
+      t.integer :notifications_cache, default: 0
+
       ## Trackable
       # t.integer  :sign_in_count, default: 0, null: false
       # t.datetime :current_sign_in_at
