@@ -13,9 +13,10 @@ class User < ApplicationRecord
 
   private
 
+  # TODO: - shove this into a background job
   def nullify_dependents
     dependents.each do |dependent|
-      send(dependent)&.update_all(user_id: nil)
+      send(dependent)&.update_all(user_id: nil) # rubocop:disable Rails/SkipsModelValidations
     end
   end
 
