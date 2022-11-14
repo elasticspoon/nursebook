@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_025921) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_14_032528) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_025921) do
   end
 
   create_table "requests", force: :cascade do |t|
-    t.boolean "accepted"
+    t.boolean "accepted", default: false
     t.bigint "sender_id", null: false
     t.bigint "receiver_id", null: false
     t.datetime "created_at", null: false

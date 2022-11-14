@@ -14,6 +14,10 @@ RSpec.describe Request, type: :model do
     }
   end
 
+  describe 'Database' do
+    it { should have_db_column(:accepted).with_options(default: false) }
+  end
+
   describe 'Validations' do
   end
 
