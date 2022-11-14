@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :liked_posts, through: :user_liked_posts, source: :post, counter_cache: :liked_posts_cache
 
   has_many :comments, inverse_of: :creator, dependent: false, counter_cache: :comments_cache
+  has_many :user_liked_comments, dependent: :destroy, inverse_of: :user, class_name: 'LikedComment'
+  has_many :liked_comments, through: :user_liked_comments, source: :comment, counter_cache: :liked_comments_cache
 
   private
 

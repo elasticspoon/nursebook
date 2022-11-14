@@ -10,6 +10,11 @@ RSpec.describe User, type: :model do
     it { should have_many(:user_liked_posts).dependent(:destroy).inverse_of(:user).class_name('LikedPost') }
     it { should have_many(:liked_posts).through(:user_liked_posts).source(:post).counter_cache(:liked_posts_cache) }
     it { should have_many(:comments).inverse_of(:creator).dependent(false).counter_cache(:comments_cache) }
+    it { should have_many(:user_liked_comments).dependent(:destroy).inverse_of(:user).class_name('LikedComment') }
+    it {
+      should have_many(:liked_comments)
+        .through(:user_liked_comments).source(:comment).counter_cache(:liked_comments_cache)
+    }
   end
 
   describe 'Validations' do

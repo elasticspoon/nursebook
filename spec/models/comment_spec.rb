@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/BlockLength
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
@@ -15,6 +16,8 @@ RSpec.describe Comment, type: :model do
       should have_many(:comments).dependent(:destroy).inverse_of(:parent)
         .counter_cache(:direct_comments_count)
     }
+    it { should have_many(:user_liked_comments).dependent(:destroy).inverse_of(:comment).class_name('LikedComment') }
+    it { should have_many(:likers).through(:user_liked_comments).source(:user).counter_cache(:likes_count) }
   end
 
   describe 'Validations' do
@@ -29,3 +32,5 @@ RSpec.describe Comment, type: :model do
   describe 'Callbacks' do
   end
 end
+
+# rubocop:enable Metrics/BlockLength
