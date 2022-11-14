@@ -15,6 +15,7 @@ RSpec.describe User, type: :model do
       should have_many(:liked_comments)
         .through(:user_liked_comments).source(:comment).counter_cache(:liked_comments_cache)
     }
+    it { should have_one(:profile).dependent(:destroy).class_name('UserProfile') }
   end
 
   describe 'Validations' do
