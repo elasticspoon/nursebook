@@ -12,10 +12,21 @@ RSpec.describe User, type: :model do
     it { should have_many(:comments).inverse_of(:creator).dependent(false).counter_cache(:comments_cache) }
     it { should have_many(:user_liked_comments).dependent(:destroy).inverse_of(:user).class_name('LikedComment') }
     it {
-      should have_many(:liked_comments)
-        .through(:user_liked_comments).source(:comment).counter_cache(:liked_comments_cache)
+      should have_many(:liked_comments).through(:user_liked_comments)
+        .source(:comment).counter_cache(:liked_comments_cache)
     }
     it { should have_one(:profile).dependent(:destroy).class_name('UserProfile') }
+    it {
+      should have_many(:outgoing_friend_requests).dependent(:destroy)
+        .inverse_of(:sender).class_name('Request').with_foreign_key(:sender_id)
+    }
+    it {
+      should have_many(:incoming_friend_requests).dependent(:destroy)
+        .inverse_of(:receiver).class_name('Request').with_foreign_key(:receiver_id)
+        .counter_cache(:friend_requests_cache)
+    }
+    it { should have_many(:request_senders).through(:incoming_friend_requests).source(:sender) }
+    it { should have_many(:request_targets).through(:outgoing_friend_requests).source(:receiver) }
   end
 
   describe 'Validations' do

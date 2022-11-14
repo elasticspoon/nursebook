@@ -11,13 +11,30 @@ class User < ApplicationRecord
 
   has_one :profile, dependent: :destroy, class_name: 'UserProfile'
 
+  # Posts
   has_many :posts, inverse_of: :creator, dependent: false, counter_cache: :posts_cache
   has_many :user_liked_posts, dependent: :destroy, inverse_of: :user, class_name: 'LikedPost'
   has_many :liked_posts, through: :user_liked_posts, source: :post, counter_cache: :liked_posts_cache
 
+  # Comments
   has_many :comments, inverse_of: :creator, dependent: false, counter_cache: :comments_cache
   has_many :user_liked_comments, dependent: :destroy, inverse_of: :user, class_name: 'LikedComment'
   has_many :liked_comments, through: :user_liked_comments, source: :comment, counter_cache: :liked_comments_cache
+
+  # Friend Requests
+  has_many :outgoing_friend_requests,
+           dependent: :destroy,
+           inverse_of: :sender,
+           class_name: 'Request',
+           foreign_key: :sender_id
+  has_many :incoming_friend_requests,
+           dependent: :destroy,
+           inverse_of: :receiver,
+           class_name: 'Request',
+           foreign_key: :receiver_id,
+           counter_cache: :friend_requests_cache
+  has_many :request_senders, through: :incoming_friend_requests, source: :sender
+  has_many :request_targets, through: :outgoing_friend_requests, source: :receiver
 
   private
 

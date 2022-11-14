@@ -1,5 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe Request, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:request) { create(:request) }
+  subject { request }
+
+  describe 'Associations' do
+    it { should belong_to(:sender).class_name('User').inverse_of(:outgoing_friend_requests) }
+    it {
+      should belong_to(:receiver)
+        .class_name('User')
+        .inverse_of(:incoming_friend_requests)
+        .counter_cache(:friend_requests_cache)
+    }
+  end
+
+  describe 'Validations' do
+  end
+
+  describe 'Callbacks' do
+  end
 end

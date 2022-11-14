@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :request do
     accepted { false }
-    sender { nil }
-    receiver { nil }
+    association :sender, factory: :user
+    association :receiver, factory: :user
   end
 end
