@@ -36,6 +36,26 @@ class User < ApplicationRecord
   has_many :request_senders, through: :incoming_friend_requests, source: :sender
   has_many :request_targets, through: :outgoing_friend_requests, source: :receiver
 
+  # Friendships
+  has_many :friendships,
+           lambda { |user|
+             unscope(where: :user_one_id).where(
+               'user_one_id = ? OR user_two_id = ?',
+               user.id,
+               user.id
+             )
+           },
+           inverse_of: :user_one,
+           dependent: :destroy,
+           foreign_key: :user_one_id
+  has_many :friends,
+           lambda { |user|
+             joins('OR users.id = friendships.user_one_id').where.not(id: user.id).distinct
+           },
+           through: :friendships,
+           source: :user_two,
+           counter_cache: :friends_cache
+
   private
 
   # TODO: - shove this into a background job
