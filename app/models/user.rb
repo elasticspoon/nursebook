@@ -10,9 +10,10 @@ class User < ApplicationRecord
   before_destroy :nullify_dependents
 
   has_many :posts, inverse_of: :creator, dependent: false, counter_cache: :posts_cache
-
   has_many :user_liked_posts, dependent: :destroy, inverse_of: :user, class_name: 'LikedPost'
   has_many :liked_posts, through: :user_liked_posts, source: :post, counter_cache: :liked_posts_cache
+
+  has_many :comments, inverse_of: :creator, dependent: false, counter_cache: :comments_cache
 
   private
 
