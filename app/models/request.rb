@@ -7,13 +7,25 @@ class Request < ApplicationRecord
 
   validates :accepted, inclusion: { in: [false] }
 
-  validate :check_existing_requests, on: :create
+  validate :check_existing_requests, :check_existing_friendships, on: :create
 
   private
 
   def check_existing_requests
-    return unless Request.exists?(sender:, receiver:) || Request.exists?(sender: receiver, receiver: sender)
+    request = Request.where(sender:, receiver:).or(Request.where(sender: receiver, receiver: sender)).take
 
-    errors.add(:base, 'Request already exists')
+    errors.add(:base, "Request already exists: #{request.inspect}") if request
+  end
+
+  def check_existing_friendships
+    friendship = Friendship.where(
+      user_one: sender,
+      user_two: receiver
+    ).or(Friendship.where(
+           user_one: receiver,
+           user_two: sender
+         )).take
+
+    errors.add(:base, "Friendship already exists: #{friendship.inspect}") if friendship
   end
 end
