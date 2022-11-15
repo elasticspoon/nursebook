@@ -6,7 +6,7 @@ module Likeable
              dependent: :destroy,
              class_name: through_table_class,
              inverse_of: name.downcase
-    has_many :likers, through: through_table, source: name.downcase, counter_cache: :likes_count
+    has_many :likers, through: through_table, source: :user, counter_cache: :likes_count
   end
 
   class_methods do

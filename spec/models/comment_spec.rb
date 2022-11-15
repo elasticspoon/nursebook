@@ -1,9 +1,11 @@
-# rubocop:disable Metrics/BlockLength
 require 'rails_helper'
+require_relative 'concerns/likeable_spec'
 
 RSpec.describe Comment, type: :model do
   let(:comment) { create(:comment) }
   subject { comment }
+
+  include_examples 'likeable', :comment
 
   describe 'Associations' do
     it {
@@ -16,8 +18,6 @@ RSpec.describe Comment, type: :model do
       should have_many(:comments).dependent(:destroy).inverse_of(:parent)
         .counter_cache(:direct_comments_count)
     }
-    it { should have_many(:user_liked_comments).dependent(:destroy).inverse_of(:comment).class_name('LikedComment') }
-    it { should have_many(:likers).through(:user_liked_comments).source(:user).counter_cache(:likes_count) }
   end
 
   describe 'Validations' do
@@ -32,5 +32,3 @@ RSpec.describe Comment, type: :model do
   describe 'Callbacks' do
   end
 end
-
-# rubocop:enable Metrics/BlockLength
