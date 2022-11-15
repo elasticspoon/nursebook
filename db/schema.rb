@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_15_011205) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_15_033946) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,6 +54,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_011205) do
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_liked_posts_on_post_id"
     t.index ["user_id"], name: "index_liked_posts_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "content"
+    t.string "source_type", null: false
+    t.bigint "source_id", null: false
+    t.bigint "target_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["source_type", "source_id"], name: "index_notifications_on_source"
+    t.index ["target_id"], name: "index_notifications_on_target_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -114,6 +125,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_011205) do
   add_foreign_key "liked_comments", "users"
   add_foreign_key "liked_posts", "posts"
   add_foreign_key "liked_posts", "users"
+  add_foreign_key "notifications", "users", column: "target_id"
   add_foreign_key "posts", "users"
   add_foreign_key "requests", "users", column: "receiver_id"
   add_foreign_key "requests", "users", column: "sender_id"
