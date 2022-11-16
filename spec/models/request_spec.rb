@@ -21,8 +21,8 @@ RSpec.describe Request, type: :model do
   end
 
   describe 'Validations' do
-    it { should allow_value(false).for(:accepted) }
-    it { should_not allow_value(true).for(:accepted) }
+    it { should allow_value(false).for(:accepted).on(:create) }
+    it { should_not allow_value(true).for(:accepted).on(:create) }
 
     context 'when request already exists' do
       let(:request_copy) { build(:request, sender: request.sender, receiver: request.receiver) }
@@ -63,6 +63,17 @@ RSpec.describe Request, type: :model do
   end
 
   describe 'Callbacks' do
+    it 'should create a friendship when the request is accepted' do
+      request.update(accepted: true)
+      friendship = Friendship.where(user_one: request.sender, user_two: request.receiver).take
+      friendship_reversed = Friendship.where(user_one: request.receiver, user_two: request.sender).take
+      expect(friendship || friendship_reversed).to be_truthy
+    end
+
+    it 'should destroy itself when the request is accepted' do
+      request.update(accepted: true)
+      expect(request).to be_destroyed
+    end
   end
 end
 
