@@ -24,10 +24,10 @@ class Comment < ApplicationRecord
   end
 
   def content
-    "#{creator.email} commented on your post"
+    "#{creator.email} commented on your #{parent_type.downcase}"
   end
 
   def notification_targets
-    [post.creator]
+    [parent.creator]
   end
 end
