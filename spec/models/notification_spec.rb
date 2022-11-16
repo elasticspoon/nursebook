@@ -10,6 +10,7 @@ RSpec.describe Notification, type: :model do
   end
 
   describe 'Validations' do
+    it { is_expected.to validate_inclusion_of(:status).in_array(Notification::NOTIFICATION_STATES) }
   end
 
   describe 'Callbacks' do

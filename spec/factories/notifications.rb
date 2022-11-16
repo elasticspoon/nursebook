@@ -3,5 +3,6 @@ FactoryBot.define do
     content { Faker::Lorem.sentence }
     association :target, factory: :user
     association :source, factory: :comment
+    status { 'unread' }
   end
 end
