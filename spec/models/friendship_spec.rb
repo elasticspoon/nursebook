@@ -1,9 +1,12 @@
 # rubocop:disable Metrics/BlockLength
 require 'rails_helper'
+require_relative 'concerns/notifiyable_spec'
 
 RSpec.describe Friendship, type: :model do
   let(:friendship) { create(:friendship) }
   subject { friendship }
+
+  include_examples 'notifiyable'
 
   describe 'Associations' do
     it { should belong_to(:user_one).class_name('User').counter_cache(:friends_cache) }

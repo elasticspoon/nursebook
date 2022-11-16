@@ -1,5 +1,6 @@
 class Comment < ApplicationRecord
   include Likeable
+  include Notifiyable
 
   belongs_to :creator,
              class_name: 'User',
@@ -12,11 +13,21 @@ class Comment < ApplicationRecord
 
   has_many :comments, as: :parent, dependent: :destroy, inverse_of: :parent, counter_cache: :direct_comments_count
 
-  before_validation :set_post_id, on: :create
+  before_validation :set_post, on: :create
+
+  validates :creator, presence: true, on: :create
 
   private
 
-  def set_post_id
-    self.post_id ||= parent.post_id
+  def set_post
+    self.post ||= parent.post
+  end
+
+  def content
+    "#{creator.email} commented on your post"
+  end
+
+  def notification_targets
+    [post.creator]
   end
 end

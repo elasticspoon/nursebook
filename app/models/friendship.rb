@@ -1,4 +1,6 @@
 class Friendship < ApplicationRecord
+  include Notifiyable
+
   belongs_to :user_one, class_name: 'User', counter_cache: :friends_cache
   belongs_to :user_two, class_name: 'User', counter_cache: :friends_cache
 
@@ -28,5 +30,13 @@ class Friendship < ApplicationRecord
          )).take
 
     errors.add(:base, "Request already exists: #{request.inspect}") if request
+  end
+
+  def notification_targets
+    [user_one, user_two]
+  end
+
+  def content
+    "#{user_one.email} and #{user_two.email} are now friends."
   end
 end

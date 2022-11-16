@@ -1,11 +1,14 @@
+# rubocop:disable Metrics/BlockLength
 require 'rails_helper'
 require_relative 'concerns/likeable_spec'
+require_relative 'concerns/notifiyable_spec'
 
 RSpec.describe Comment, type: :model do
   let(:comment) { create(:comment) }
   subject { comment }
 
   include_examples 'likeable', :comment
+  include_examples 'notifiyable'
 
   describe 'Associations' do
     it {
@@ -27,8 +30,12 @@ RSpec.describe Comment, type: :model do
       sub_comment = create(:comment, parent: comment, post:)
       expect(sub_comment.post_id).to eq(post.id)
     end
+
+    it { should validate_presence_of(:creator).on(:create) }
   end
 
   describe 'Callbacks' do
   end
 end
+
+# rubocop:enable Metrics/BlockLength

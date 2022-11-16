@@ -1,9 +1,12 @@
 # rubocop:disable Metrics/BlockLength
 require 'rails_helper'
+require_relative 'concerns/notifiyable_spec'
 
 RSpec.describe Request, type: :model do
   let(:request) { create(:request) }
   subject { request }
+
+  include_examples 'notifiyable'
 
   describe 'Associations' do
     it { should belong_to(:sender).class_name('User').inverse_of(:outgoing_friend_requests) }

@@ -1,4 +1,5 @@
 class Request < ApplicationRecord
+  include Notifiyable
   belongs_to :sender, class_name: 'User', inverse_of: :outgoing_friend_requests
   belongs_to :receiver,
              class_name: 'User',
@@ -37,5 +38,13 @@ class Request < ApplicationRecord
 
   def create_friendship
     Friendship.create(user_one: sender, user_two: receiver)
+  end
+
+  def notification_targets
+    [receiver]
+  end
+
+  def content
+    "#{sender.email} wants to be friends with you."
   end
 end
