@@ -9,7 +9,7 @@ RSpec.shared_examples 'notifiyable' do
   end
 
   describe 'Callbacks' do
-    let(:notifiyable) { build(subject.class.name.downcase.to_sym) }
+    let(:notifiyable) { build(subject.class.name.underscore) }
     before { allow(notifiyable).to receive(:notification_targets).and_return([]) }
 
     it 'should call the notify method after creating a notifyable' do

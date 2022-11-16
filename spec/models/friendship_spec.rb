@@ -1,6 +1,6 @@
 # rubocop:disable Metrics/BlockLength
 require 'rails_helper'
-require_relative 'concerns/notifiyable_spec'
+require_relative 'concerns/notifiyable_shared_example'
 
 RSpec.describe Friendship, type: :model do
   let(:friendship) { create(:friendship) }

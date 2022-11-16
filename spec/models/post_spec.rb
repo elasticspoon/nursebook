@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative 'concerns/likeable_spec'
+require_relative 'concerns/likeable_shared_example'
 
 RSpec.describe Post, type: :model do
   let(:post) { create(:post) }
