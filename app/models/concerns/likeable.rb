@@ -13,7 +13,7 @@ module Likeable
     private
 
     def through_table
-      "user_liked_#{name.downcase}s".to_sym
+      :"user_liked_#{name.downcase}s"
     end
 
     def through_table_class

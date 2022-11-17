@@ -5,7 +5,7 @@ RSpec.shared_examples 'likeable' do |likeable_name|
   subject { likeable }
 
   describe 'Associations' do
-    let(:through_table) { "user_liked_#{likeable_name}s".to_sym }
+    let(:through_table) { :"user_liked_#{likeable_name}s" }
     let(:through_table_class) { "Liked#{likeable_name.to_s.capitalize}" }
 
     it {
