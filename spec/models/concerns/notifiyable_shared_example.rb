@@ -10,7 +10,10 @@ RSpec.shared_examples 'notifiyable' do
 
   describe 'Callbacks' do
     let(:notifiyable) { build(subject.class.name.underscore) }
-    before { allow(notifiyable).to receive(:notification_targets).and_return([]) }
+    before do
+      allow(notifiyable).to receive(:notification_targets).and_return([])
+      allow(DelayedJob).to receive(:perform_later)
+    end
 
     it 'should call the notify method after creating a notifyable' do
       expect(notifiyable).to receive(:notify)
