@@ -56,6 +56,9 @@ class User < ApplicationRecord
            source: :user_two,
            counter_cache: :friends_cache
 
+  # Notifications
+  has_many :notifications, dependent: :destroy, inverse_of: :target, foreign_key: :target_id
+
   private
 
   # TODO: - shove this into a background job

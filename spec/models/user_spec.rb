@@ -36,6 +36,9 @@ RSpec.describe User, type: :model do
     # Freindships
     it { should have_many(:friendships).dependent(:destroy).with_foreign_key(:user_one_id).inverse_of(:user_one) }
     it { should have_many(:friends).through(:friendships).source(:user_two).counter_cache(:friends_cache) }
+
+    # Notifications
+    it { should have_many(:notifications).dependent(:destroy).inverse_of(:target).with_foreign_key(:target_id) }
   end
 
   describe 'Association Scope Tests' do
