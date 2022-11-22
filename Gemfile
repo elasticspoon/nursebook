@@ -68,6 +68,7 @@ group :development do
 end
 
 gem 'inline_svg'
+gem 'view_component'
 
 group :development do
   gem 'better_errors'
