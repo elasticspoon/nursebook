@@ -1,1 +1,4 @@
 /* Entry point for your PostCSS build */
+@import "globals.postcss";
+@import "post.postcss";
+@import "comment.postcss";

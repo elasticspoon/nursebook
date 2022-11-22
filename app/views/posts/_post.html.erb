@@ -1,12 +1,22 @@
-<div id="<%= dom_id post %>">
-  <p>
-    <strong>User:</strong>
-    <%= post.user_id %>
-  </p>
-
-  <p>
-    <strong>Content:</strong>
-    <%= post.content %>
-  </p>
-
-</div>
+<%= turbo_frame_tag post, loading: :lazy do %>
+  <div class="post">
+    <div class="post__content">
+      <p>
+        <strong>User:</strong>
+        <%= post.user_id %>
+        <%= post.creator.email %>
+      </p>
+      <p>
+        <strong>Content:</strong>
+        <%= post.content %>
+      </p>
+    </div>
+    <div class="comment__comments-list">
+      <% post.comments.each do |comment| %>
+        <%= turbo_frame_tag comment, src: comment_path(comment), loading: :lazy do %>
+          <p>Loading...</p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

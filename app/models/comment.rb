@@ -23,7 +23,7 @@ class Comment < ApplicationRecord
     self.post ||= parent.post
   end
 
-  def content
+  def notification_content
     "#{creator.email} commented on your #{parent_type.downcase}"
   end
 

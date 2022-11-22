@@ -36,7 +36,7 @@ class Friendship < ApplicationRecord
     [user_one, user_two]
   end
 
-  def content
+  def notification_content
     "#{user_one.email} and #{user_two.email} are now friends."
   end
 end

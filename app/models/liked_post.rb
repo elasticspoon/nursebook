@@ -6,7 +6,7 @@ class LikedPost < ApplicationRecord
 
   private
 
-  def content
+  def notification_content
     "#{user.email} liked your post"
   end
 

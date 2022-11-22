@@ -1,14 +1,13 @@
 <p style="color: green"><%= notice %></p>
-
 <h1>Posts</h1>
-
-<div id="posts">
+<div class="new_post__container">
+  <%= turbo_frame_tag id="new_post", src: new_post_path %>
+</div>
+<div class="posts_list">
   <% @posts.each do |post| %>
-    <%= render post %>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
+    <%= turbo_frame_tag post, src: post_path(post), loading: :lazy do %>
+      <p>Loading...</p>
+    <% end %>
   <% end %>
 </div>
-
 <%= link_to "New post", new_post_path %>

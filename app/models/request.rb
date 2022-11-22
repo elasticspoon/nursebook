@@ -44,7 +44,7 @@ class Request < ApplicationRecord
     [receiver]
   end
 
-  def content
+  def notification_content
     "#{sender.email} wants to be friends with you."
   end
 end

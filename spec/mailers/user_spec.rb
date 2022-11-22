@@ -7,7 +7,7 @@ RSpec.describe UserMailer, type: :mailer do
         create(:user_profile, user:)
       end
     end
-    let(:mail) { UserMailer.with(user).welcome_user }
+    let(:mail) { UserMailer.with(user:).welcome_user }
 
     it 'renders the headers' do
       expect(mail.subject).to eq('Welcome to Nursebook!')

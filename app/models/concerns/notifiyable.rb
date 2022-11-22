@@ -12,7 +12,7 @@ module Notifiyable
   def notify(targets: notification_targets, delay: 0)
     targets&.each do |target|
       DelayedJob.set(wait: delay)
-        .perform_later(Notification, :create, target:, content:, source: self)
+        .perform_later(Notification, :create, target:, content: notification_content, source: self)
     end
   end
 
@@ -20,7 +20,7 @@ module Notifiyable
     raise NotImplementedError
   end
 
-  def content
+  def notification_content
     raise NotImplementedError
   end
 end
