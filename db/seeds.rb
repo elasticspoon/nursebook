@@ -8,10 +8,9 @@
 User.destroy_all
 Post.destroy_all
 
-# User.create!(email: 'test@example.com', password: 'password')
-
 20.times do
   user = User.create!(email: Faker::Internet.email, password: Faker::Internet.password)
+  user.create_profile!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
   5.times do
     user.posts.create!(content: Faker::Lorem.paragraph)
   end
@@ -33,3 +32,5 @@ User.all.each do |user|
   Post.all.sample(5).each { |post| user.liked_posts << post }
   Comment.all.sample(10).each { |comment| user.liked_comments << comment }
 end
+
+User.create!(email: 'test@example.com', password: 'password')
