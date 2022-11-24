@@ -15,6 +15,7 @@
     "build:css": "postcss ./app/assets/stylesheets/application.postcss.css -o ./app/assets/builds/application.css"
   },
   "devDependencies": {
+    "css-has-pseudo": "^4.0.1",
     "postcss-import": "^15.0.0",
     "postcss-import-ext-glob": "^2.0.1"
   }

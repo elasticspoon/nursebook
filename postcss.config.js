@@ -4,5 +4,6 @@ module.exports = {
     require("autoprefixer"),
     require("postcss-import-ext-glob"),
     require("postcss-import"),
+    require("css-has-pseudo"),
   ],
 };

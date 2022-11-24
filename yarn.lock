@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@csstools/selector-specificity@^2.0.0":
+"@csstools/selector-specificity@^2.0.0", "@csstools/selector-specificity@^2.0.1":
   version "2.0.2"
   resolved "https://registry.npmjs.org/@csstools/selector-specificity/-/selector-specificity-2.0.2.tgz"
   integrity sha512-IkpVW/ehM1hWKln4fCA3NzJU8KwD+kIOvPZA4cqxoJHtE21CCzjyp+Kxbu0i5I4tBNOlXPL9mjwnWlL0VEG4Fg==
@@ -145,6 +145,15 @@ color-name@~1.1.4:
   version "1.1.4"
   resolved "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
+
+css-has-pseudo@*:
+  version "4.0.1"
+  resolved "https://registry.npmjs.org/css-has-pseudo/-/css-has-pseudo-4.0.1.tgz"
+  integrity sha512-L3s0E0B+DhaFhUVpBAJri+Z7xVijUJQJUIDluB7LcsdNk8MIUS1a2EhrMhmMSGnFULcecQOjIenuvCYgKZBwew==
+  dependencies:
+    "@csstools/selector-specificity" "^2.0.1"
+    postcss-selector-parser "^6.0.10"
+    postcss-value-parser "^4.2.0"
 
 cssesc@^3.0.0:
   version "3.0.0"
@@ -431,7 +440,7 @@ postcss-cli@^10.0.0:
     slash "^4.0.0"
     yargs "^17.0.0"
 
-postcss-import-ext-glob@*:
+postcss-import-ext-glob@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/postcss-import-ext-glob/-/postcss-import-ext-glob-2.0.1.tgz"
   integrity sha512-cCvzsZBPuhLCOAfkPeBnJ31uz5azlAjNb5Aug1f2nlomgZK+WD7Uwfrk+epFU9PI20rsMAineDUK4Ty+jEQHcg==
