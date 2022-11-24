@@ -72,6 +72,7 @@ end
 guard 'livereload' do
   extensions = {
     css: :css,
+    postcss: :postcss,
     scss: :css,
     sass: :css,
     js: :js,
@@ -105,6 +106,8 @@ guard 'livereload' do
   end
 
   # file needing a full reload of the page anyway
+
+  watch(%r{app/assets/stylesheets.+\.{css|postcss}})
   watch(%r{app/views/.+\.(#{rails_view_exts * '|'})$})
   watch(%r{app/components/.+\.(#{rails_view_exts * '|'})$})
   watch(%r{app/components/.+\.rb})
