@@ -1,6 +1,13 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[show edit update destroy]
 
+  # GET /comments
+  def index
+    post_id = params[:post_id]
+    @comments = post_id ? Comment.where(parent_id: post_id, parent_type: 'Post') : Comment.all
+    @post_id = post_id
+  end
+
   # GET /comments/1 or /comments/1.json
   def show
   end

@@ -2,3 +2,4 @@
 @import "globals.postcss";
 @import "post.postcss";
 @import "comment.postcss";
+@import "user.postcss";

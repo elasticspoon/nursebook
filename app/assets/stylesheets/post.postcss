@@ -6,9 +6,58 @@
 }
 
 .post {
-  background-color: bisque;
+  background-color: #242526;
   padding: 20px 10px;
+  border-radius: 8px;
+  color: white;
+  font-size: 15px;
 }
+
 .post__content {
-  border: 1px black solid;
+  font-weight: 400;
+}
+
+.post__social-data-wrapper {
+  display: flex;
+  border-bottom: 1px solid grey;
+}
+
+.post__likes-icon {
+  height: 20px;
+  width: 20px;
+}
+
+.post__likes-data {
+  margin-right: auto;
+  display: flex;
+
+  &:not(:has(.post__social-data)) .post__likes-icon {
+    display: none;
+  }
+}
+
+.post__social-actions {
+  display: flex;
+  justify-content: space-around;
+  font-weight: 600;
+}
+
+.post__post-data {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.post__social-button {
+  width: 100%;
+  text-align: center;
+
+  &:hover {
+    background-color: gray;
+  }
+}
+
+.post__social-data {
+  &:hover {
+    text-decoration: underline;
+  }
 }

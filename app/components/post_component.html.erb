@@ -1,0 +1,36 @@
+<%= tag.turbo_frame id: dom_id(@post) do %>
+  <div class="post">
+    <div class="">
+      <div class="small_user__container">
+        <div><%= inline_svg_tag 'user_placeholder.svg', class: 'small_user__avatar' %></div>
+        <div>
+          <span><%= creator_name %></span>
+          <div class="post__post-data">
+            <% post_data.each do |data| %>
+              <span><%= data %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <p class="post__content">
+        <%= @post.content %>
+      </p>
+      <div class="post__social-data-wrapper">
+        <div class="post__likes-data">
+          <%= inline_svg_tag('like_icon.svg', class: 'post__likes-icon') %>
+          <%= likes_count %>
+        </div>
+        <%= comments_count %>
+        <%= shares_count %>
+      </div>
+      <div class="post__social-actions">
+        <div class="post__social-button">Like</div>
+        <div class="post__social-button">Comment</div>
+        <div class="post__social-button">Share</div>
+      </div>
+    </div>
+    <div class="comment__comments-list">
+      <%= tag.turbo_frame id: comments_index_turbo_id(@post.id) %>
+    </div>
+  </div>
+<% end %>
