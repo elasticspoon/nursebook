@@ -24,7 +24,8 @@
         <%= shares_count %>
       </div>
       <div class="post__social-actions">
-        <div class="post__social-button">Like</div>
+        <%= button_to 'Like', [:liked_posts],
+         { class: 'post__social-button', form_class: 'post__social-button', params: { liked_post: { post_id: @post.id }}} %>
         <div class="post__social-button">Comment</div>
         <div class="post__social-button">Share</div>
       </div>

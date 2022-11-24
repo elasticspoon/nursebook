@@ -1,4 +1,5 @@
 class LikedPostsController < ApplicationController
+  before_action :authenticate_user!, only: %i[create destroy]
   before_action :set_liked_post, only: %i[show destroy]
 
   # GET /liked_posts/1 or /liked_posts/1.json
@@ -7,7 +8,8 @@ class LikedPostsController < ApplicationController
 
   # POST /liked_posts or /liked_posts.json
   def create
-    @liked_post = LikedPost.new(liked_post_params)
+    valid_params = liked_post_params.merge(user_id: current_user.id)
+    @liked_post = LikedPost.new(valid_params)
 
     respond_to do |format|
       if @liked_post.save
@@ -39,6 +41,6 @@ class LikedPostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def liked_post_params
-    params.require(:liked_post).permit(:user_id, :post_id)
+    params.require(:liked_post).permit(:post_id)
   end
 end
