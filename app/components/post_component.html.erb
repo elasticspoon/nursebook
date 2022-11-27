@@ -1,5 +1,8 @@
 <%= tag.turbo_frame id: dom_id(@post) do %>
-  <div class="post">
+  <div class="post" data-controller="post" 
+  data-post-liked-value=<%= liked %> 
+  data-post-count-value=<%= likes_num %>
+  data-post-current-user-name-value=<%= @current_user&.name %>>
     <div class="">
       <div class="small_user__container">
         <div><%= inline_svg_tag 'user_placeholder.svg', class: 'small_user__avatar' %></div>
@@ -17,15 +20,18 @@
       </p>
       <div class="post__social-data-wrapper">
         <div class="post__likes-data">
-          <%= inline_svg_tag('like_icon.svg', class: 'post__likes-icon') %>
+          <%= inline_svg_tag('like_icon.svg', 
+          class: "post__likes-icon #{'post__likes-icon--hidden' if likes_num.zero?}",
+          data: { post_target: 'likeIcon'}) %>
           <%= likes_count %>
         </div>
         <%= comments_count %>
         <%= shares_count %>
       </div>
       <div class="post__social-actions">
-        <%= button_to 'Like', [:liked_posts],
-         { class: 'post__social-button', form_class: 'post__social-button', params: { liked_post: { post_id: @post.id }}} %>
+        <%= tag.turbo_frame id: 'testing', src: liked_post_path(liked_post: { target_id: @post.id }), loading: :lazy do %>
+          <%= render_like_button %>
+        <% end %>
         <div class="post__social-button">Comment</div>
         <div class="post__social-button">Share</div>
       </div>

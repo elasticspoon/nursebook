@@ -9,14 +9,14 @@ RSpec.describe User, type: :model do
     # Posts
     it { should have_many(:posts).dependent(false).inverse_of(:creator).counter_cache(:posts_cache) }
     it { should have_many(:user_liked_posts).dependent(:destroy).inverse_of(:user).class_name('LikedPost') }
-    it { should have_many(:liked_posts).through(:user_liked_posts).source(:post).counter_cache(:liked_posts_cache) }
+    it { should have_many(:liked_posts).through(:user_liked_posts).source(:target).counter_cache(:liked_posts_cache) }
 
     # Comments
     it { should have_many(:comments).inverse_of(:creator).dependent(false).counter_cache(:comments_cache) }
     it { should have_many(:user_liked_comments).dependent(:destroy).inverse_of(:user).class_name('LikedComment') }
     it {
       should have_many(:liked_comments).through(:user_liked_comments)
-        .source(:comment).counter_cache(:liked_comments_cache)
+        .source(:target).counter_cache(:liked_comments_cache)
     }
     it { should have_one(:profile).dependent(:destroy).class_name('UserProfile') }
 
@@ -81,6 +81,19 @@ RSpec.describe User, type: :model do
       comment = create(:comment, creator: user)
       user.destroy
       expect(comment.reload.user_id).to be_nil
+    end
+  end
+
+  describe '#name' do
+    it 'should return the correct name if user has a profile' do
+      user = build_stubbed(:user_with_profile)
+      expected_name = "#{user.profile.first_name} #{user.profile.last_name}"
+      expect(user.name).to eq(expected_name)
+    end
+
+    it 'should return email if user does not have a profile' do
+      user = build_stubbed(:user)
+      expect(user.name).to eq(user.email)
     end
   end
 end

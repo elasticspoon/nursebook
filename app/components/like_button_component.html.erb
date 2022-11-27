@@ -1,0 +1,19 @@
+<% if @like_object.persisted? %>
+  <%= form_with model: @like_object, class: default_class, data: { controller: 'button_modifier' }, method: :delete do |form| %>
+    <%= form.hidden_field :target_id %>
+    <%= form.submit 'Like', class: selected_class, 
+    data: { 
+      action: 'click->post#toggleLiked', 
+      post_target: 'likeButton'
+      } %>
+  <% end %>
+<% else %>
+  <%= form_with model: @like_object, class: default_class, data: { controller: 'button_modifier' } do |form| %>
+    <%= form.hidden_field :target_id %>
+    <%= form.submit 'Like', class: default_class, 
+    data: { 
+      action: 'click->post#toggleLiked', 
+      post_target: 'likeButton'
+      } %>
+  <% end %>
+<% end %>

@@ -9,6 +9,6 @@ RSpec.describe LikedComment, type: :model do
 
   describe 'Associations' do
     it { should belong_to(:user).counter_cache(:liked_comments_cache) }
-    it { should belong_to(:comment).counter_cache(:likes_count) }
+    it { should belong_to(:target).counter_cache(:likes_count).class_name('Comment') }
   end
 end

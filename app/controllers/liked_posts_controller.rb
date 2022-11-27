@@ -1,6 +1,9 @@
 class LikedPostsController < ApplicationController
   before_action :authenticate_user!, only: %i[create destroy]
-  before_action :set_liked_post, only: %i[show destroy]
+  before_action :set_liked_post, only: :destroy
+  before_action :set_or_initialize_liked_post, only: :show
+
+  layout false
 
   # GET /liked_posts/1 or /liked_posts/1.json
   def show
@@ -13,34 +16,49 @@ class LikedPostsController < ApplicationController
 
     respond_to do |format|
       if @liked_post.save
-        format.html { redirect_to liked_post_url(@liked_post), notice: 'Liked post was successfully created.' }
-        format.json { render :show, status: :created, location: @liked_post }
+        format.html { render :show, notice: 'Liked post was successfully created.' }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @liked_post.errors, status: :unprocessable_entity }
+        format.html { render :show, status: :unprocessable_entity }
       end
     end
   end
+
+  # def update
+  #   if @liked_post.save
+  #     redirect_to post_url(@post), notice: 'Post was successfully updated.'
+  #   else
+  #     render :show, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE /liked_posts/1 or /liked_posts/1.json
   def destroy
     @liked_post.destroy
 
-    respond_to do |format|
-      format.html { redirect_to liked_posts_url, notice: 'Liked post was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render :show, notice: 'Liked post was successfully destroyed.'
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Set a liked post based on liked_post_id given
   def set_liked_post
     @liked_post = LikedPost.find(params[:id])
   end
 
+  # Set a liked post based on post_id and current_user
+  # initialize a new liked post if none exists
+  def set_or_initialize_liked_post
+    target_id = liked_post_params[:target_id]
+    user_id = current_user&.id
+    @liked_post = LikedPost.find_or_initialize_by(target_id:, user_id:)
+  end
+
   # Only allow a list of trusted parameters through.
   def liked_post_params
-    params.require(:liked_post).permit(:post_id)
+    params.require(:liked_post).permit(:target_id, :id)
+  end
+
+  def authenticate_user!
+    redirect_to new_user_session_path unless user_signed_in?
   end
 end

@@ -1,8 +1,8 @@
 class LikedPost < ApplicationRecord
   include Notifiyable
 
+  belongs_to :target, counter_cache: :likes_count, class_name: 'Post'
   belongs_to :user, counter_cache: :liked_posts_cache
-  belongs_to :post, counter_cache: :likes_count
 
   private
 
@@ -11,6 +11,6 @@ class LikedPost < ApplicationRecord
   end
 
   def notification_targets
-    [post.creator]
+    [target.creator]
   end
 end

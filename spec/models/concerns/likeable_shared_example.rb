@@ -10,7 +10,7 @@ RSpec.shared_examples 'likeable' do |likeable_name|
 
     it {
       should have_many(through_table)
-        .dependent(:destroy).inverse_of(likeable_name)
+        .dependent(:destroy).inverse_of(:target)
         .class_name(through_table_class)
     }
 

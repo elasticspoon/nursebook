@@ -14,12 +14,15 @@ class User < ApplicationRecord
   # Posts
   has_many :posts, inverse_of: :creator, dependent: false, counter_cache: :posts_cache
   has_many :user_liked_posts, dependent: :destroy, inverse_of: :user, class_name: 'LikedPost'
-  has_many :liked_posts, through: :user_liked_posts, source: :post, counter_cache: :liked_posts_cache
+  has_many :liked_posts,
+           through: :user_liked_posts,
+           source: :target,
+           counter_cache: :liked_posts_cache
 
   # Comments
   has_many :comments, inverse_of: :creator, dependent: false, counter_cache: :comments_cache
   has_many :user_liked_comments, dependent: :destroy, inverse_of: :user, class_name: 'LikedComment'
-  has_many :liked_comments, through: :user_liked_comments, source: :comment, counter_cache: :liked_comments_cache
+  has_many :liked_comments, through: :user_liked_comments, source: :target, counter_cache: :liked_comments_cache
 
   # Friend Requests
   has_many :outgoing_friend_requests,
@@ -58,6 +61,14 @@ class User < ApplicationRecord
 
   # Notifications
   has_many :notifications, dependent: :destroy, inverse_of: :target, foreign_key: :target_id
+
+  def name
+    user_profile = profile
+
+    return "#{user_profile.first_name} #{user_profile.last_name}" if user_profile
+
+    email
+  end
 
   private
 

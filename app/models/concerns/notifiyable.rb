@@ -10,9 +10,9 @@ module Notifiyable
   private
 
   def notify(targets: notification_targets, delay: 0)
-    targets&.each do |target|
+    targets&.each do |tar|
       DelayedJob.set(wait: delay)
-        .perform_later(Notification, :create, target:, content: notification_content, source: self)
+        .perform_later(Notification, :create, target: tar, content: notification_content, source: self)
     end
   end
 

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :liked_comment do
-    comment
+    association :target, factory: :comment
     user
   end
 end

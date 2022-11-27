@@ -5,7 +5,8 @@ module Likeable
     has_many through_table,
              dependent: :destroy,
              class_name: through_table_class,
-             inverse_of: name.downcase
+             inverse_of: :target,
+             foreign_key: :target_id
     has_many :likers, through: through_table, source: :user, counter_cache: :likes_count
   end
 

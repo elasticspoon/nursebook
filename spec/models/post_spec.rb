@@ -1,3 +1,4 @@
+# rubocop:disable Lint/EmptyBlock, Metrics/BlockLength
 require 'rails_helper'
 require_relative 'concerns/likeable_shared_example'
 
@@ -19,4 +20,23 @@ RSpec.describe Post, type: :model do
 
   describe 'Callbacks' do
   end
+
+  describe '#liked_by?' do
+    let(:liked_post) { build_stubbed(:liked_post) }
+    let(:user) { liked_post.user }
+    let(:post) { liked_post.target }
+
+    it 'returns true if the post is liked by the user' do
+      allow(post).to receive(:likers).and_return([user])
+      expect(post.liked_by?(user)).to be true
+    end
+    it 'returns false if the post is not liked by the user' do
+      expect(post.liked_by?(user)).to be false
+    end
+    it 'returns false if the user is nil' do
+      expect(post.liked_by?(nil)).to be false
+    end
+  end
 end
+
+# rubocop:enable Lint/EmptyBlock, Metrics/BlockLength

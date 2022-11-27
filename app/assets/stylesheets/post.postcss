@@ -30,10 +30,10 @@
 .post__likes-data {
   margin-right: auto;
   display: flex;
+}
 
-  &:not(:has(.post__social-data)) .post__likes-icon {
-    display: none;
-  }
+.post__likes-icon--hidden {
+  display: none;
 }
 
 .post__social-actions {
@@ -54,6 +54,10 @@
   &:hover {
     background-color: gray;
   }
+}
+
+.post__social-button--selected {
+  color: blue;
 }
 
 .post__social-data {

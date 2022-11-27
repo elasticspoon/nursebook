@@ -18,4 +18,8 @@ class Post < ApplicationRecord
   def post
     self
   end
+
+  def liked_by?(user)
+    likers.include?(user)
+  end
 end

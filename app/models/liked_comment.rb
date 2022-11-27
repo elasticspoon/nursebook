@@ -1,7 +1,7 @@
 class LikedComment < ApplicationRecord
   include Notifiyable
 
-  belongs_to :comment, counter_cache: :likes_count
+  belongs_to :target, counter_cache: :likes_count, class_name: 'Comment'
   belongs_to :user, counter_cache: :liked_comments_cache
 
   private
@@ -11,6 +11,6 @@ class LikedComment < ApplicationRecord
   end
 
   def notification_targets
-    [comment.creator]
+    [target.creator]
   end
 end

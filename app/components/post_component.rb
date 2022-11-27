@@ -9,8 +9,9 @@ class PostComponent < ViewComponent::Base
   delegate :first_name, to: :profile
   delegate :last_name, to: :profile
 
-  def initialize(post:)
+  def initialize(post:, current_user: nil)
     @post = post
+    @current_user = current_user
   end
 
   def creator_name
@@ -21,13 +22,20 @@ class PostComponent < ViewComponent::Base
     time_ago_in_words(@post.created_at)
   end
 
-  def likes_count
-    likes_count = @post.likers.size
-    return if likes_count.zero?
+  def liked
+    @post.liked_by?(@current_user)
+  end
 
-    content_tag(:span, class: 'post__social-data') do
-      likes_count.to_s
-    end
+  def likes_num
+    @post.likers.size
+  end
+
+  def likes_count
+    content_tag(
+      :span,
+      class: "post__social-data #{'post__social-data--hidden' if likes_num.zero?}",
+      data:  { post_target: 'likeCount' }
+    ) { likes_text }
   end
 
   def comments_count
@@ -52,6 +60,24 @@ class PostComponent < ViewComponent::Base
 
   def post_data
     [post_age]
+  end
+
+  def render_like_button
+    render(LikeButtonComponent.new(like_object: LikedPost.new(target: @post)))
+  end
+
+  private
+
+  def likes_text
+    if liked && likes_num > 1
+      "You and #{likes_num - 1} others"
+    elsif liked && likes_num <= 1
+      @current_user.name
+    elsif !liked && likes_num > 0
+      likes_num.to_s
+    else
+      ''
+    end
   end
 end
 
