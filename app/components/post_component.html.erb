@@ -29,7 +29,7 @@
         <%= shares_count %>
       </div>
       <div class="post__social-actions">
-        <%= tag.turbo_frame id: 'testing', src: liked_post_path(liked_post: { target_id: @post.id }), loading: :lazy do %>
+        <%= tag.turbo_frame id: like_button_id(@post), src: liked_post_path(liked_post: { target_id: @post.id }), loading: :lazy do %>
           <%= render_like_button %>
         <% end %>
         <div class="post__social-button">Comment</div>

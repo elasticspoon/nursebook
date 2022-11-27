@@ -6,4 +6,8 @@ module ApplicationHelper
       'comments_list'
     end
   end
+
+  def like_button_id(post)
+    dom_id(post, :like_button)
+  end
 end
