@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :set_comment, only: %i[show edit update destroy]
+  before_action :build_new_comment, only: :new
 
   # GET /comments
   def index
@@ -14,7 +16,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @comment = Comment.new
+    @comment ||= Comment.new
   end
 
   # GET /comments/1/edit
@@ -25,14 +27,10 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
 
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to comment_url(@comment), notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    if @comment.save
+      redirect_to helpers.build_new_comment_path(@comment.parent, current_user)
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -60,6 +58,13 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def build_new_comment
+    parent_id = comment_params[:parent_id]
+    parent_type = comment_params[:parent_type]
+    creator = current_user
+    @comment = Comment.new(parent_id:, parent_type:, creator:)
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_comment

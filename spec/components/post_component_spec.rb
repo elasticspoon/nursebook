@@ -66,14 +66,6 @@ RSpec.describe PostComponent, type: :component do
       end
     end
   end
-
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
 end
 
 # rubocop:enable Metrics/BlockLength

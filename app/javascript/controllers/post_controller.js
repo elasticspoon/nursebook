@@ -2,7 +2,13 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="post"
 export default class extends Controller {
-  static targets = ["likeButton", "likeCount", "likeIcon"];
+  static targets = [
+    "likeButton",
+    "likeCount",
+    "likeIcon",
+    "commentList",
+    "newComment",
+  ];
   static values = { liked: Boolean, count: Number, currentUserName: String };
 
   connect() {}
@@ -17,7 +23,19 @@ export default class extends Controller {
       this.likeCountTarget.textContent = this.likedValue
         ? this.currentUserNameValue
         : "";
-      this.likeIconTarget.classList.toggle("post__likes-icon--hidden");
+      this.toggleElement(this.likeIconTarget);
     }
+  }
+
+  toggleElement(element) {
+    element.classList.toggle("hidden");
+  }
+
+  toggleCommentList() {
+    this.toggleElement(this.commentListTarget);
+  }
+
+  toggleNewComment() {
+    this.toggleElement(this.newCommentTarget);
   }
 }

@@ -32,6 +32,9 @@ RSpec.describe Comment, type: :model do
     end
 
     it { should validate_presence_of(:creator).on(:create) }
+    it { should allow_value('a').for(:content) }
+    it { should_not allow_value('').for(:content) }
+    it { should_not allow_value(' ').for(:content) }
   end
 
   describe 'Callbacks' do

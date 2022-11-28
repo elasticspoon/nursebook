@@ -21,7 +21,7 @@
       <div class="post__social-data-wrapper">
         <div class="post__likes-data">
           <%= inline_svg_tag('like_icon.svg', 
-          class: "post__likes-icon #{'post__likes-icon--hidden' if likes_num.zero?}",
+          class: "post__likes-icon #{'hidden' if likes_num.zero?}",
           data: { post_target: 'likeIcon'}) %>
           <%= likes_count %>
         </div>
@@ -32,12 +32,18 @@
         <%= tag.turbo_frame id: like_button_id(@post), src: liked_post_path(liked_post: { target_id: @post.id }), loading: :lazy do %>
           <%= render_like_button %>
         <% end %>
-        <div class="post__social-button">Comment</div>
+        <div class="post__social-button">
+          <%= link_to 'Comment', build_new_comment_path(@post, @current_user),
+           data: { turbo_frame: 'new_comment', action: 'click->post#toggleNewComment'} %>
+        </div>
         <div class="post__social-button">Share</div>
       </div>
     </div>
-    <div class="comment__comments-list">
+    <div class="comment__comments-list hidden" data-post-target="commentList">
       <%= tag.turbo_frame id: comments_index_turbo_id(@post.id) %>
+    </div>
+    <div class="comment__new_comment hidden" data-post-target="newComment">
+      <%= tag.turbo_frame id: 'new_comment' %>
     </div>
   </div>
 <% end %>

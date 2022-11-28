@@ -16,6 +16,7 @@ class Comment < ApplicationRecord
   before_validation :set_post, on: :create
 
   validates :creator, presence: true, on: :create
+  validates :content, presence: true, allow_blank: false
 
   private
 
