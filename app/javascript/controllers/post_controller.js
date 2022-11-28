@@ -1,4 +1,4 @@
-import { Controller } from "@hotwired/stimulus";
+import { add, Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="post"
 export default class extends Controller {
@@ -31,11 +31,18 @@ export default class extends Controller {
     element.classList.toggle("hidden");
   }
 
-  toggleCommentList() {
+  toggleCommentList(event) {
     this.toggleElement(this.commentListTarget);
+    this.addPreventDefault(event);
   }
 
-  toggleNewComment() {
+  toggleNewComment(event) {
     this.toggleElement(this.newCommentTarget);
+    this.addPreventDefault(event);
+  }
+
+  addPreventDefault(event) {
+    var default_action = event.target.getAttribute("data-action");
+    event.target.setAttribute("data-action", default_action + ":prevent");
   }
 }
