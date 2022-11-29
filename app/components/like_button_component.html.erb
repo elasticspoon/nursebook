@@ -1,19 +1,21 @@
 <% if @like_object.persisted? %>
-  <%= form_with model: @like_object, class: default_class, data: { controller: 'button_modifier' }, method: :delete do |form| %>
+  <%= form_with model: @like_object, class: selected_class, 
+  data: { controller: 'button_modifier', post_target: 'likeButton' }, method: :delete do |form| %>
     <%= form.hidden_field :target_id %>
-    <%= form.submit 'Like', class: selected_class, 
-    data: { 
-      action: 'click->post#toggleLiked', 
-      post_target: 'likeButton'
-      } %>
+    <%= form.button options = { data: { action: 'click->post#toggleLiked' },
+     class: selected_class} do %>
+      <%= inline_svg_tag 'like_icon.svg', class: 'post__social-button-icon' %>
+      Like
+    <% end %>
   <% end %>
 <% else %>
-  <%= form_with model: @like_object, class: default_class, data: { controller: 'button_modifier' } do |form| %>
+  <%= form_with model: @like_object, class: default_class, 
+  data: { controller: 'button_modifier', post_target: 'likeButton' } do |form| %>
     <%= form.hidden_field :target_id %>
-    <%= form.submit 'Like', class: default_class, 
-    data: { 
-      action: 'click->post#toggleLiked', 
-      post_target: 'likeButton'
-      } %>
+    <%= form.button options = { data: { action: 'click->post#toggleLiked' },
+     class: default_class} do %>
+      <%= inline_svg_tag 'like_icon.svg', class: 'post__social-button-icon' %>
+      Like
+    <% end %>
   <% end %>
 <% end %>

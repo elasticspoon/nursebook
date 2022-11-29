@@ -15,6 +15,7 @@ export default class extends Controller {
 
   toggleLiked() {
     this.likedValue = !this.likedValue;
+    // this.likeButtonTarget.classList.toggle("post__social_button--selected");
     if (this.countValue > 0) {
       this.likeCountTarget.textContent = this.likedValue
         ? `You and ${this.countValue} others`
@@ -34,11 +35,20 @@ export default class extends Controller {
   toggleCommentList(event) {
     this.toggleElement(this.commentListTarget);
     this.addPreventDefault(event);
+    this.changeCommentListText(event.target);
   }
 
   toggleNewComment(event) {
     this.toggleElement(this.newCommentTarget);
     this.addPreventDefault(event);
+  }
+
+  changeCommentListText(element) {
+    if (element.textContent == "Hide comments") {
+      element.textContent = "Show comments";
+    } else {
+      element.textContent = "Hide comments";
+    }
   }
 
   addPreventDefault(event) {

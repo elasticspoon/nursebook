@@ -6,7 +6,7 @@
     <div class="">
       <div class="small_user__container">
         <div><%= inline_svg_tag 'user_placeholder.svg', class: 'small_user__avatar' %></div>
-        <div>
+        <div class="small_user__data-container">
           <span><%= creator_name %></span>
           <div class="post__post-data">
             <% post_data.each do |data| %>
@@ -29,14 +29,23 @@
         <%= shares_count %>
       </div>
       <div class="post__social-actions">
-        <%= tag.turbo_frame id: like_button_id(@post), src: liked_post_path(liked_post: { target_id: @post.id }), loading: :lazy do %>
+        <%= tag.turbo_frame id: like_button_id(@post), class: 'post__social-button-container',
+          src: liked_post_path(liked_post: { target_id: @post.id }), loading: :lazy do %>
           <%= render_like_button %>
         <% end %>
-        <div class="post__social-button">
-          <%= link_to 'Comment', build_new_comment_path(@post, @current_user),
-           data: { turbo_frame: 'new_comment', action: 'click->post#toggleNewComment'} %>
+        <div class="post__social-button-container">
+          <%= link_to build_new_comment_path(@post, @current_user),
+           data: { turbo_frame: 'new_comment', action: 'click->post#toggleNewComment'}, class: 'post__social-button' do %>
+            <%= inline_svg_tag 'chat_bubble_left.svg', class: 'post__social-button-icon' %>
+            <span>Comment</span>
+          <% end %>
         </div>
-        <div class="post__social-button">Share</div>
+        <div class="post__social-button-container">
+          <%= link_to not_implemented_path, class: 'post__social-button' do %>
+            <%= inline_svg_tag 'share_icon.svg', class: 'post__social-button-icon' %>
+            <span>Share</span>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="comment__comments-list hidden" data-post-target="commentList">

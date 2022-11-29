@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :posts
   root 'posts#index'
   devise_for :users
+  get 'not_implemented', to: 'application#not_implemented'
+  post 'not_implemented', to: 'application#not_implemented'
+  put 'not_implemented', to: 'application#not_implemented'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

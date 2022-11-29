@@ -7,61 +7,113 @@
 
 .post {
   background-color: #242526;
-  padding: 20px 10px;
   border-radius: 8px;
   color: white;
   font-size: 15px;
+
+  & a {
+    text-decoration: none;
+  }
 }
 
 .post__content {
   font-weight: 400;
+  font-size: 24px;
+  padding: 0 12px;
 }
 
 .post__social-data-wrapper {
   display: flex;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #3e4042;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 10px 0;
+  margin: 0 12px;
+  column-gap: 8px;
 }
 
 .post__likes-icon {
-  height: 20px;
-  width: 20px;
+  height: 14px;
+  width: 14px;
+  background-color: #129ff7;
+  fill: currentColor;
+  border-radius: 9999px;
+  padding: 2px;
 }
 
 .post__likes-data {
   margin-right: auto;
   display: flex;
+  column-gap: 5px;
+  align-items: center;
 }
 
-.post__likes-icon--hidden {
-  display: none;
+.post__social-data {
+  color: #b0b3b8;
+  text-decoration: none;
+
+  & a:visited {
+    color: white;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .post__social-actions {
   display: flex;
   justify-content: space-around;
   font-weight: 600;
+  padding: 4px 12px;
 }
 
 .post__post-data {
   font-size: 13px;
   font-weight: 400;
+  color: #b0b3b8;
+}
+
+.post__social-button-container {
+  display: flex;
+  flex-grow: 1;
 }
 
 .post__social-button {
-  width: 100%;
+  flex-grow: 1;
   text-align: center;
+  color: #b0b3b8;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10px;
+
+  & button {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    border: none;
+    background: transparent;
+  }
 
   &:hover {
-    background-color: gray;
+    background-color: #4e4f50;
   }
 }
 
-.post__social-button--selected {
-  color: blue;
+.post__social-button-icon {
+  height: 18px;
+  width: 18px;
+  /* position: absolute; */
 }
 
-.post__social-data {
-  &:hover {
-    text-decoration: underline;
+.post__social-button--selected {
+  color: #228aff;
+
+  & .post__social-button-icon {
+    fill: currentColor;
   }
 }

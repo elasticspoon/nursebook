@@ -13,6 +13,10 @@ class LikeButtonComponent < ViewComponent::Base
   def default_class
     'post__social-button'
   end
+
+  def append_to_default(data)
+    "#{default_class} #{default_class}#{data}"
+  end
 end
 
 # rubocop:enable Lint/MissingSuper

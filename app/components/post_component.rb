@@ -42,14 +42,13 @@ class PostComponent < ViewComponent::Base
     comments_count = @post.total_comments.size
     return if comments_count.zero?
 
-    content_tag(:span, class: 'post__social-data') do
-      link_to "#{comments_count} Comments",
-              comments_path(post_id: @post.id),
-              data: {
-                turbo_frame: comments_index_turbo_id(@post.id),
-                action:      'click->post#toggleCommentList'
-              }
-    end
+    link_to "#{comments_count} Comments",
+            comments_path(post_id: @post.id),
+            class: 'post__social-data',
+            data: {
+              turbo_frame: comments_index_turbo_id(@post.id),
+              action:      'click->post#toggleCommentList'
+            }
   end
 
   def shares_count
