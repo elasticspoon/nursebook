@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :liked_comments
   resources :comments
   put '/liked_posts/:id', to: 'liked_posts#create'
+  get '/post/:id/index_likers', to: 'liked_posts#index_likers', as: 'index_post_likers'
   resources :liked_posts, only: %i[show create destroy]
   resources :posts
   root 'posts#index'

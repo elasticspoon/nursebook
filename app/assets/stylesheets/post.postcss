@@ -90,6 +90,7 @@
   align-items: center;
   justify-content: center;
   column-gap: 10px;
+  cursor: pointer;
 
   & button {
     color: inherit;
@@ -116,4 +117,27 @@
   & .post__social-button-icon {
     fill: currentColor;
   }
+}
+
+.post__hover-data-container {
+  position: relative;
+  &:hover .post__hover-data {
+    display: flex;
+  }
+}
+
+.post__hover-data {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  background-color: #cbcbcb;
+  opacity: 90%;
+  color: black;
+  top: 25px;
+  left: 0;
+  border: 1px solid gray;
+  border-radius: 8px;
+  width: max-content;
+  padding: 6px;
+  font-size: 13px;
 }

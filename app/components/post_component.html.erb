@@ -19,11 +19,13 @@
         <%= @post.content %>
       </p>
       <div class="post__social-data-wrapper">
-        <div class="post__likes-data">
+        <div class="post__likes-data post__hover-data-container">
           <%= inline_svg_tag('like_icon.svg', 
           class: "post__likes-icon #{'hidden' if likes_num.zero?}",
           data: { post_target: 'likeIcon'}) %>
           <%= likes_count %>
+          <%= tag.turbo_frame id: dom_id(@post, :likers_list), class: 'post__hover-data',
+             src: index_post_likers_path(@post), loading: :lazy %>
         </div>
         <%= comments_count %>
         <%= shares_count %>

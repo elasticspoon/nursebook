@@ -5,6 +5,13 @@ class LikedPostsController < ApplicationController
 
   layout false
 
+  def index_likers
+    @target_id = params[:id]
+    liked_posts = LikedPost.includes(user: [:profile])
+    specific_liked_posts = @target_id ? liked_posts.where(target_id: @target_id) : liked_posts
+    @likers = specific_liked_posts.map(&:user)
+  end
+
   # GET /liked_posts/1 or /liked_posts/1.json
   def show
   end

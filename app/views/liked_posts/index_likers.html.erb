@@ -1,0 +1,5 @@
+<%= turbo_frame_tag id="likers_list_post_#{@target_id}" do %>
+  <% @likers.each do |liker| %>
+    <span><%= liker.name %></span>
+  <% end %>
+<% end %>
