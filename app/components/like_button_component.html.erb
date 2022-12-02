@@ -4,7 +4,7 @@
     <%= form.hidden_field :target_id %>
     <%= form.button options = { data: { action: 'click->post#toggleLiked' },
      class: selected_class} do %>
-      <%= inline_svg_tag 'like_icon.svg', class: 'post__social-button-icon' %>
+      <%= inline_svg_tag 'cross.svg', class: 'post__social-button-icon' %>
       Like
     <% end %>
   <% end %>
@@ -14,7 +14,7 @@
     <%= form.hidden_field :target_id %>
     <%= form.button options = { data: { action: 'click->post#toggleLiked' },
      class: default_class} do %>
-      <%= inline_svg_tag 'like_icon.svg', class: 'post__social-button-icon' %>
+      <%= inline_svg_tag 'cross.svg', class: 'post__social-button-icon' %>
       Like
     <% end %>
   <% end %>
