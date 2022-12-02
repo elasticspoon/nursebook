@@ -1,0 +1,5 @@
+<%= turbo_frame_tag id="commentors_list_#{@parent_type}_#{@parent_id}", class: 'post__hover-data' do %>
+  <% @commentors.each do |commentor| %>
+    <span><%= commentor.name %></span>
+  <% end %>
+<% end %>

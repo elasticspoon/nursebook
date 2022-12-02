@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :comments
   put '/liked_posts/:id', to: 'liked_posts#create'
   get '/post/:id/index_likers', to: 'liked_posts#index_likers', as: 'index_post_likers'
+  # get '/:parent_type/:parent_id/index_commentors', to: 'comments#index_commentors', as: 'index_commentors'
+  get '/post/:id/index_commentors', to: 'posts#index_commentors', as: 'index_commentors'
   resources :liked_posts, only: %i[show create destroy]
   resources :posts
   root 'posts#index'

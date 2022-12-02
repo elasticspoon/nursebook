@@ -10,6 +10,16 @@ class CommentsController < ApplicationController
     @post_id = post_id
   end
 
+  def index_commentors
+    @parent_id = params[:parent_id]
+    @parent_type = params[:parent_type]
+    comments = Comment.includes(creator: [:profile])
+    comments.where!(parent_id: @parent_id, parent_type: @parent_type.capitalize)
+    @commentors = comments.map(&:creator).uniq
+  end
+
+  # def index_direct_comments
+
   # GET /comments/1 or /comments/1.json
   def show
   end

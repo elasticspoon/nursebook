@@ -6,6 +6,11 @@ class PostsController < ApplicationController
     @posts = Post.order(created_at: :desc)
   end
 
+  def index_commentors
+    @post = Post.includes(creator: [:profile]).find(params[:id])
+    @commentors = @post.comments.map(&:creator).uniq
+  end
+
   # GET /posts/1 or /posts/1.json
   def show
   end
