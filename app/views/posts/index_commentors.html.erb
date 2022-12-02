@@ -1,5 +1,8 @@
 <%= turbo_frame_tag id=dom_id(@post, :commentors_list), class: 'post__hover-data' do %>
-  <% @commentors.each do |commentor| %>
+  <% @commentors[...19].each do |commentor| %>
     <span><%= commentor.name %></span>
+  <% end %>
+  <% if @commentors.size >= 19 %>
+    <span>and <%= @commentors.size - 19 %> more...</span>
   <% end %>
 <% end %>

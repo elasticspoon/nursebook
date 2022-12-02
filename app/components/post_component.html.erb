@@ -25,11 +25,15 @@
           data: { post_target: 'likeIcon'}) %>
           <%= likes_count %>
           <%= tag.turbo_frame id: dom_id(@post, :likers_list), class: 'post__hover-data',
-             src: index_post_likers_path(@post), loading: :lazy %>
+             src: index_post_likers_path(@post), loading: :lazy do %>
+            Loading...
+          <% end %>
         </div>
         <div class="post__hover-data-container">
           <%= tag.turbo_frame id: dom_id(@post, :commentors_list), class: 'post__hover-data', loading: :lazy,
-          src: index_commentors_path(id: @post.id) %>
+          src: index_commentors_path(id: @post.id) do %>
+            Loading...
+          <% end %>
           <%= comments_count %>
         </div>
         <%= shares_count %>
