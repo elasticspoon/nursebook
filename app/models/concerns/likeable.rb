@@ -8,6 +8,9 @@ module Likeable
              inverse_of: :target,
              foreign_key: :target_id
     has_many :likers, through: through_table, source: :user, counter_cache: :likes_count
+
+    has_many :likes, as: :target, dependent: :destroy
+    has_many :users_liking, through: :likes, source: :user
   end
 
   class_methods do
