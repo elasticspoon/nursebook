@@ -1,13 +1,22 @@
 <p style="color: green"><%= notice %></p>
 <h1>Posts</h1>
 <div class="new_post__container">
-  <%# turbo_frame_tag id="new_post", src: new_post_path %>
+  <%= turbo_frame_tag id="new_post", src: new_post_path %>
 </div>
-<div class="posts_list">
-  <% @posts.each do |post| %>
-    <%= turbo_frame_tag post, src: post_path(post), loading: :lazy do %>
-      <p>Loading...</p>
+<div class="posts_list__container">
+  <%= turbo_frame_tag id="posts_index_page_#{@page}", class: 'posts_list' do %>
+    <% unless @posts.empty? %>
+      <% @posts.each do |post| %>
+        <%= turbo_frame_tag post, src: post_path(post), loading: :lazy do %>
+          <p>Loading...</p>
+        <% end %>
+      <% end %>
+      <%= turbo_frame_tag id="posts_index_page_#{@page + 1}", class: 'posts_list',
+  src: posts_path(post: { page: @page + 1 }), loading: :lazy %>
+    <% else %>
+      <span>You have reached the end, there are no more posts to look at.</span>
+      <%= link_to 'Consider posting something yourself', '#new_post',
+       data: { turbo_frame: '_top' } %>
     <% end %>
   <% end %>
 </div>
-<%= link_to "New post", new_post_path %>

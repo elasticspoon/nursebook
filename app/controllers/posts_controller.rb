@@ -1,9 +1,14 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
 
+  RESULTS_PER_PAGE = 10
+
   # GET /posts or /posts.json
   def index
+    @page = params[:post] ? post_params[:page].to_i : 0
+    offset = @page * RESULTS_PER_PAGE
     @posts = Post.order(created_at: :desc)
+      .limit(RESULTS_PER_PAGE).offset(offset)
   end
 
   def index_commentors
@@ -71,6 +76,6 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:user_id, :content)
+    params.require(:post).permit(:user_id, :content, :page)
   end
 end
