@@ -22,9 +22,9 @@ RSpec.describe Post, type: :model do
   end
 
   describe '#liked_by?' do
-    let(:liked_post) { build_stubbed(:liked_post) }
-    let(:user) { liked_post.user }
-    let(:post) { liked_post.target }
+    let(:like) { build_stubbed(:like) }
+    let(:user) { like.user }
+    let(:post) { like.target }
 
     it 'returns true if the post is liked by the user' do
       allow(post).to receive(:likers).and_return([user])
