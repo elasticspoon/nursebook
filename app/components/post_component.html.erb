@@ -1,7 +1,7 @@
 <%= tag.turbo_frame id: dom_id(@post) do %>
   <div class="post" data-controller="post" 
   data-post-liked-value=<%= liked %> 
-  data-post-count-value=<%= likes_num %>
+  data-post-count-value=<%= others_likes %>
   data-post-current-user-name-value=<%= @current_user&.name %>>
     <div class="">
       <div class="small_user__container">
@@ -25,7 +25,7 @@
           data: { post_target: 'likeIcon'}) %>
           <%= likes_count %>
           <%= tag.turbo_frame id: dom_id(@post, :likers_list), class: 'post__hover-data',
-             src: index_post_likers_path(@post), loading: :lazy do %>
+             src: index_likers_path(target_id: @post.id, target_type: @post.class.name), loading: :lazy do %>
             Loading...
           <% end %>
         </div>
@@ -39,13 +39,16 @@
         <%= shares_count %>
       </div>
       <div class="post__social-actions">
-        <%= tag.turbo_frame id: like_button_id(@post), class: 'post__social-button-container',
-          src: liked_post_path(liked_post: { target_id: @post.id }), loading: :lazy do %>
+        <%= tag.turbo_frame id: dom_id(@post, :like_button), class: 'post__social-button-container',
+          src: like_path(like: { target_id: @post.id, target_type: 'post' }), loading: :lazy do %>
           <%= render_like_button %>
         <% end %>
         <div class="post__social-button-container">
           <%= link_to build_new_comment_path(@post, @current_user),
-           data: { turbo_frame: 'new_comment', action: 'click->post#toggleNewComment'}, class: 'post__social-button' do %>
+           data: { turbo_frame: dom_id(@post, :new_comment),
+            action: 'click->post#toggleNewComment',
+            post_target: 'newCommentLink',
+            }, class: 'post__social-button' do %>
             <%= inline_svg_tag 'chat_bubble_left.svg', class: 'post__social-button-icon' %>
             <span>Comment</span>
           <% end %>
@@ -62,7 +65,7 @@
       <%= tag.turbo_frame id: comments_index_turbo_id(@post.id) %>
     </div>
     <div class="comment__new_comment hidden" data-post-target="newComment">
-      <%= tag.turbo_frame id: 'new_comment' %>
+      <%= tag.turbo_frame id: dom_id(@post, :new_comment) %>
     </div>
   </div>
 <% end %>

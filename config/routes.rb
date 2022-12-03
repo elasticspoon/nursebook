@@ -1,16 +1,14 @@
 Rails.application.routes.draw do
-  resources :likes
   resources :notifications
   resources :friendships
   resources :requests
   resources :user_profiles
-  resources :liked_comments
   resources :comments
-  put '/liked_posts/:id', to: 'liked_posts#create'
-  get '/post/:id/index_likers', to: 'liked_posts#index_likers', as: 'index_post_likers'
-  # get '/:parent_type/:parent_id/index_commentors', to: 'comments#index_commentors', as: 'index_commentors'
+  put '/likes/:id', to: 'likes#create'
+  get '/likes(/:id)', to: 'likes#show', as: 'like'
+  get '/:target_type/:target_id/index_likers', to: 'likes#index_likers', as: 'index_likers'
   get '/post/:id/index_commentors', to: 'posts#index_commentors', as: 'index_commentors'
-  resources :liked_posts, only: %i[show create destroy]
+  resources :likes, only: %i[show create destroy]
   resources :posts
   root 'posts#index'
   devise_for :users

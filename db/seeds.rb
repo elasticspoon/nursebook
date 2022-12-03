@@ -7,6 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 User.destroy_all
 Post.destroy_all
+Notification.destroy_all
 
 20.times do
   user = User.create!(email: Faker::Internet.email, password: Faker::Internet.password)

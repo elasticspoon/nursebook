@@ -1,4 +1,4 @@
-<%= turbo_frame_tag id="likers_list_post_#{@target_id}" do %>
+<%= turbo_frame_tag id="likers_list_#{@target_type}_#{@target_id}" do %>
   <% @likers[...19].each do |liker| %>
     <span><%= liker.name %></span>
   <% end %>

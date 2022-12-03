@@ -9,10 +9,64 @@ RSpec.describe PostComponent, type: :component do
   let(:post) { build_stubbed(:post, creator: build_stubbed(:user_with_profile)) }
   let(:post_component) { described_class.new(post:, current_user:) }
 
+  describe 'component state' do
+    describe 'stimulus controller' do
+      it 'has a controller post' do
+        render_component = render_inline(post_component)
+        expect(render_component.css('[data-controller="post"]')).to be_present
+      end
+
+      it 'has a liked-value data attribute' do
+        render_component = render_inline(post_component)
+        expect(render_component.css('[data-post-liked-value]')).to be_present
+      end
+
+      it 'liked-value is true if current user likes the post' do
+        allow(post).to receive(:likers).and_return([current_user])
+        render_component = render_inline(post_component)
+        expect(render_component.css('[data-post-liked-value="true"]')).to be_present
+      end
+
+      it 'liked-value is false if current user does not like the post' do
+        allow(post).to receive(:likers).and_return([])
+        render_component = render_inline(post_component)
+        expect(render_component.css('[data-post-liked-value="false"]')).to be_present
+      end
+
+      it 'has a count-value data attribute' do
+        render_component = render_inline(post_component)
+        expect(render_component.css('[data-post-count-value]')).to be_present
+      end
+
+      it 'count-value is the number of likes if not liked' do
+        allow(post).to receive(:likers).and_return(['test'])
+        render_component = render_inline(post_component)
+        expect(render_component.css('[data-post-count-value="1"]')).to be_present
+      end
+
+      it 'count-value is the number of likes minus 1 if liked' do
+        allow(post).to receive(:likers).and_return([current_user, 'test'])
+        render_component = render_inline(post_component)
+        expect(render_component.css('[data-post-count-value="1"]')).to be_present
+      end
+    end
+  end
+
   describe '#likes_num' do
     it 'returns the number of likes' do
       allow(post).to receive(:likers).and_return(Array.new(3))
       expect(post_component.likes_num).to eq(3)
+    end
+  end
+
+  describe '#others_likes' do
+    it 'ommits the current user from the count' do
+      allow(post).to receive(:likers).and_return([current_user])
+      expect(post_component.others_likes).to eq(0)
+    end
+    it 'returns the number of likes' do
+      allow(post).to receive(:likers).and_return(Array.new(3))
+      expect(post_component.others_likes).to eq(3)
     end
   end
 

@@ -1,9 +1,3 @@
-<h1>New like</h1>
-
-<%= render "form", like: @like %>
-
-<br>
-
-<div>
-  <%= link_to "Back to likes", likes_path %>
-</div>
+<%= turbo_frame_tag id="like_button_#{@target_type}_#{@target_id}" do %>
+  <%= render(LikeButtonComponent.new(like_object: @like))  %>
+<% end %>

@@ -30,6 +30,10 @@ class PostComponent < ViewComponent::Base
     @post.likers.size
   end
 
+  def others_likes
+    likes_num - (liked ? 1 : 0)
+  end
+
   def likes_count
     content_tag(
       :span,
@@ -65,7 +69,7 @@ class PostComponent < ViewComponent::Base
   end
 
   def render_like_button
-    render(LikeButtonComponent.new(like_object: LikedPost.new(target: @post)))
+    render(LikeButtonComponent.new(like_object: Like.new(target: @post)))
   end
 
   private

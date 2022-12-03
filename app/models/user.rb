@@ -13,20 +13,23 @@ class User < ApplicationRecord
 
   # Posts
   has_many :posts, inverse_of: :creator, dependent: false, counter_cache: :posts_cache
-  has_many :user_liked_posts, dependent: :destroy, inverse_of: :user, class_name: 'LikedPost'
+
+  has_many :user_liked_posts, dependent: :destroy, inverse_of: :user, class_name: 'Like'
   has_many :liked_posts,
            through: :user_liked_posts,
            source: :target,
+           source_type: 'Post',
            counter_cache: :liked_posts_cache
-  has_many :user_liked_posts_dup, dependent: :destroy, inverse_of: :user, class_name: 'Like'
-  has_many :liked_posts_dup, through: :user_liked_posts_dup, source: :target, source_type: 'Post'
 
   # Comments
   has_many :comments, inverse_of: :creator, dependent: false, counter_cache: :comments_cache
-  has_many :user_liked_comments, dependent: :destroy, inverse_of: :user, class_name: 'LikedComment'
-  has_many :liked_comments, through: :user_liked_comments, source: :target, counter_cache: :liked_comments_cache
-  has_many :user_liked_comments_dup, dependent: :destroy, inverse_of: :user, class_name: 'Like'
-  has_many :liked_comments_dup, through: :user_liked_comments_dup, source: :target, source_type: 'Comment'
+
+  has_many :user_liked_comments, dependent: :destroy, inverse_of: :user, class_name: 'Like'
+  has_many :liked_comments,
+           through: :user_liked_comments,
+           source: :target,
+           source_type: 'Comment',
+           counter_cache: :liked_comments_cache
 
   # Friend Requests
   has_many :outgoing_friend_requests,

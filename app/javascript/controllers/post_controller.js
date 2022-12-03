@@ -8,6 +8,7 @@ export default class extends Controller {
     "likeIcon",
     "commentList",
     "newComment",
+    "newCommentLink",
   ];
   static values = { liked: Boolean, count: Number, currentUserName: String };
 
@@ -34,13 +35,13 @@ export default class extends Controller {
 
   toggleCommentList(event) {
     this.toggleElement(this.commentListTarget);
-    this.addPreventDefault(event);
+    this.addPreventDefault(event.target);
     this.changeCommentListText(event.target);
   }
 
-  toggleNewComment(event) {
+  toggleNewComment() {
     this.toggleElement(this.newCommentTarget);
-    this.addPreventDefault(event);
+    this.addPreventDefault(this.newCommentLinkTarget);
   }
 
   changeCommentListText(element) {
@@ -51,8 +52,10 @@ export default class extends Controller {
     }
   }
 
-  addPreventDefault(event) {
-    var default_action = event.target.getAttribute("data-action");
-    event.target.setAttribute("data-action", default_action + ":prevent");
+  addPreventDefault(target) {
+    var default_action = target.getAttribute("data-action");
+    if (default_action && !default_action.includes(":prevent")) {
+      target.setAttribute("data-action", default_action + ":prevent");
+    }
   }
 }
