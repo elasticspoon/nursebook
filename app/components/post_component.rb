@@ -1,4 +1,3 @@
-# rubocop:disable Lint/MissingSuper
 # frozen_string_literal: true
 
 class PostComponent < ViewComponent::Base
@@ -47,10 +46,10 @@ class PostComponent < ViewComponent::Base
     return if comments_count.zero?
 
     link_to "#{comments_count} Comments",
-            comments_path(post_id: @post.id),
+            comments_path(comment: { parent_id: @post.id, parent_type: 'Post' }),
             class: 'post__social-data',
             data: {
-              turbo_frame: comments_index_turbo_id(@post.id),
+              turbo_frame: dom_id(@post, :comments_list),
               action:      'click->post#toggleCommentList'
             }
   end

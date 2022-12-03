@@ -1,15 +1,17 @@
 .comment {
-  border-radius: 4px;
+  display: flex;
 }
-.comment__child-comments-container {
+.comment__nested-comments {
   padding-left: 20px;
-}
-/* .comment__comments-list {
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
-} */
+}
+.comment__container {
+  display: flex;
+  flex-direction: column;
+}
 .comment__content {
+  border-radius: 4px;
   border: 1px black solid;
-  background-color: aquamarine;
+  background-color: gray;
 }

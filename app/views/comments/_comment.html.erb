@@ -1,4 +1,4 @@
-<%= turbo_frame_tag comment, loading: :lazy do %>
+<% turbo_frame_tag comment, loading: :lazy do %>
   <div class="comment">
     <div class="comment__content">
       <p>
@@ -17,3 +17,4 @@
     </div>
   </div>
 <% end %>
+<%= render(CommentComponent.new(comment: comment, current_user:)) %>

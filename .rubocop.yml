@@ -119,3 +119,5 @@ Style/NumericPredicate:
 
 Style/TrivialAccessors:
   AllowPredicates: true
+Lint/MissingSuper:
+  Enabled: false

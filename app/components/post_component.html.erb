@@ -62,7 +62,7 @@
       </div>
     </div>
     <div class="comment__comments-list hidden" data-post-target="commentList">
-      <%= tag.turbo_frame id: comments_index_turbo_id(@post.id) %>
+      <%= tag.turbo_frame id: dom_id(@post, :comments_list) %>
     </div>
     <div class="comment__new_comment hidden" data-post-target="newComment">
       <%= tag.turbo_frame id: dom_id(@post, :new_comment) %>

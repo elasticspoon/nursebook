@@ -3,11 +3,13 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: %i[show edit update destroy]
   before_action :build_new_comment, only: :new
 
+  layout false
+
   # GET /comments
   def index
-    post_id = params[:post_id]
-    @comments = post_id ? Comment.where(parent_id: post_id, parent_type: 'Post') : Comment.all
-    @post_id = post_id
+    parent_type = comment_params[:parent_type]
+    parent_id = comment_params[:parent_id]
+    @comments = Comment.where(parent_id:, parent_type:)
   end
 
   # def index_direct_comments
