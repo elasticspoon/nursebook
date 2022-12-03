@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_011315) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_03_012709) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,26 +65,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_011315) do
     t.datetime "updated_at", null: false
     t.index ["user_one_id"], name: "index_friendships_on_user_one_id"
     t.index ["user_two_id"], name: "index_friendships_on_user_two_id"
-  end
-
-  create_table "liked_comments", force: :cascade do |t|
-    t.bigint "target_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["target_id", "user_id"], name: "index_liked_comments_on_target_id_and_user_id", unique: true
-    t.index ["target_id"], name: "index_liked_comments_on_target_id"
-    t.index ["user_id"], name: "index_liked_comments_on_user_id"
-  end
-
-  create_table "liked_posts", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "target_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["target_id", "user_id"], name: "index_liked_posts_on_target_id_and_user_id", unique: true
-    t.index ["target_id"], name: "index_liked_posts_on_target_id"
-    t.index ["user_id"], name: "index_liked_posts_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -165,10 +145,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_011315) do
   add_foreign_key "comments", "users"
   add_foreign_key "friendships", "users", column: "user_one_id"
   add_foreign_key "friendships", "users", column: "user_two_id"
-  add_foreign_key "liked_comments", "comments", column: "target_id"
-  add_foreign_key "liked_comments", "users"
-  add_foreign_key "liked_posts", "posts", column: "target_id"
-  add_foreign_key "liked_posts", "users"
   add_foreign_key "likes", "users"
   add_foreign_key "notifications", "users", column: "target_id"
   add_foreign_key "posts", "users"

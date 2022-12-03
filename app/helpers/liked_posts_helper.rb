@@ -1,3 +1,0 @@
-module LikedPostsHelper
-  # def
-end
