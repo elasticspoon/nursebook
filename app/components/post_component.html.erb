@@ -14,6 +14,16 @@
             <% end %>
           </div>
         </div>
+        <div class="post__menu-container" data-controller="dropdown">
+          <button type="button" class="post__menu-icon-container"
+          data-action="dropdown#toggle click@window->dropdown#hide"
+            data-dropdown-target="button">
+            <%= inline_svg_tag 'ellipsis_horizontal.svg' %>
+          </button>
+          <div class="post__menu hidden" data-dropdown-target="menu">
+            <%= link_to 'Placeholder', not_implemented_path, class: 'post__menu-item' %>
+          </div>
+        </div>
       </div>
       <p class="post__content">
         <%= @post.content %>
