@@ -86,6 +86,20 @@ RSpec.describe PostComponent, type: :component do
     end
   end
 
+  describe '#creator?' do
+    it 'returns true if the current user is the post creator' do
+      post = build_stubbed(:post, creator: current_user)
+      post_component = described_class.new(post:, current_user:)
+      expect(post_component.creator?).to be true
+    end
+
+    it 'returns false if the current user is not the post creator' do
+      post = build_stubbed(:post, creator: build_stubbed(:user))
+      post_component = described_class.new(post:, current_user:)
+      expect(post_component.creator?).to be false
+    end
+  end
+
   describe '#likes_count' do
     it 'returns an empty span if the post has no likes' do
       allow(post).to receive(:likers).and_return([])

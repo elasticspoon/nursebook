@@ -21,7 +21,20 @@
             <%= inline_svg_tag 'ellipsis_horizontal.svg' %>
           </button>
           <div class="post__menu hidden" data-dropdown-target="menu">
-            <%= link_to 'Placeholder', not_implemented_path, class: 'post__menu-item' %>
+            <%= link_to not_implemented_path, class: 'post__menu-item' do %>
+              <%= inline_svg_tag 'question_mark.svg' %>
+              <span>Placeholder</span>
+            <% end %>
+            <%= form_with model: @post, method: :delete, html: { style: 'display: flex;' } do |form| %>
+              <%= form.button class: 'post__menu-item' do %>
+                <%= inline_svg_tag 'trashcan.svg' %>
+                <span>Delete Post</span>
+              <% end %>
+            <% end %>
+            <%= link_to edit_post_path(@post), class: 'post__menu-item' do %>
+              <%= inline_svg_tag 'pencil.svg' %>
+              <span>Edit Post</span>
+            <% end %>
           </div>
         </div>
       </div>

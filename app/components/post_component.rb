@@ -71,6 +71,10 @@ class PostComponent < ViewComponent::Base
     render(LikeButtonComponent.new(like_object: Like.new(target: @post)))
   end
 
+  def creator?
+    @current_user == @post.creator
+  end
+
   private
 
   def likes_text
