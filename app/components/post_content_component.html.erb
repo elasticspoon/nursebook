@@ -1,0 +1,19 @@
+<div class="post__content">
+  <p class="post__body-text">
+    <%= @body %>
+  </p>
+  <% if @images.any? %>
+    <div class="post__images-carousel" data-controller="carousel">
+      <%= inline_svg_tag 'left_chevron.svg' %>
+      <div class="post__images-container">
+        <p>
+          <%= @images.size %> images
+        </p>
+        <% @images.each do |image| %>
+          <%= image_tag image.variant(:default), class: 'post__image' %>
+        <% end %>
+      </div>
+      <%= inline_svg_tag 'left_chevron.svg', style: 'transform: rotate(180deg);' %>
+    </div>
+  <% end %>
+</div>

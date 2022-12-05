@@ -215,3 +215,29 @@
     display: flex;
   } */
 }
+
+.post__images-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & svg {
+    height: 30px;
+    width: 30px;
+    min-width: 30px;
+    padding: 8px;
+    border-radius: 9999px;
+
+    &:hover {
+      background-color: gray;
+    }
+  }
+}
+
+.post__images-container {
+  display: flex;
+}
+
+.post__image {
+  max-width: 100%;
+}

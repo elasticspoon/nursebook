@@ -9,8 +9,7 @@ class LikesController < ApplicationController
     @target_id = target_id = params[:target_id]
     @target_type = target_type = params[:target_type].capitalize
 
-    likes = Like.includes(user: [:profile]).where(target_id:, target_type:)
-    @likers = likes.map(&:user).excluding(current_user)
+    @likers = Like.includes(user: [:profile]).where(target_id:, target_type:).map(&:user)
   end
 
   # GET /likes/1 or /likes/1.json

@@ -34,4 +34,5 @@ User.all.each do |user|
   Comment.all.sample(10).each { |comment| user.liked_comments << comment }
 end
 
-User.create!(email: 'test@example.com', password: 'password')
+user = User.create!(email: 'test@example.com', password: 'password')
+user.create_profile!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)

@@ -100,3 +100,5 @@ group :development, :test do
   gem 'standard'
 end
 gem 'devise'
+
+gem "image_processing", "~> 1.12"

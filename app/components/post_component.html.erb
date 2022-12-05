@@ -25,22 +25,22 @@
               <%= inline_svg_tag 'question_mark.svg' %>
               <span>Placeholder</span>
             <% end %>
-            <%= form_with model: @post, method: :delete, html: { style: 'display: flex;' } do |form| %>
-              <%= form.button class: 'post__menu-item' do %>
-                <%= inline_svg_tag 'trashcan.svg' %>
-                <span>Delete Post</span>
+            <% if creator? %>
+              <%= form_with model: @post, method: :delete, html: { style: 'display: flex;' } do |form| %>
+                <%= form.button class: 'post__menu-item' do %>
+                  <%= inline_svg_tag 'trashcan.svg' %>
+                  <span>Delete Post</span>
+                <% end %>
               <% end %>
-            <% end %>
-            <%= link_to edit_post_path(@post), class: 'post__menu-item' do %>
-              <%= inline_svg_tag 'pencil.svg' %>
-              <span>Edit Post</span>
+              <%= link_to edit_post_path(@post), class: 'post__menu-item' do %>
+                <%= inline_svg_tag 'pencil.svg' %>
+                <span>Edit Post</span>
+              <% end %>
             <% end %>
           </div>
         </div>
       </div>
-      <p class="post__content">
-        <%= @post.content %>
-      </p>
+      <%= @body.call %>
       <div class="post__social-data-wrapper">
         <div class="post__likes-data post__hover-data-container">
           <%= inline_svg_tag('cross.svg', 

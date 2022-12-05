@@ -9,6 +9,7 @@ export default class extends Controller {
     "commentList",
     "newComment",
     "newCommentLink",
+    "uploadField",
   ];
   static values = { liked: Boolean, count: Number, currentUserName: String };
 
@@ -58,4 +59,14 @@ export default class extends Controller {
       target.setAttribute("data-action", default_action + ":prevent");
     }
   }
+
+  addUploadField() {
+    var upload_field = this.uploadFieldTarget.cloneNode(true);
+    upload_field.value = "";
+    upload_field.removeAttribute("data-post-target");
+    upload_field.classList.remove("hidden");
+    this.uploadFieldTarget.insertAdjacentElement("beforebegin", upload_field);
+  }
+
+  removeUploadField() {}
 }

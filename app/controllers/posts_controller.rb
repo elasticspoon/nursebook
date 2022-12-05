@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, only: %i[create edit update destroy]
   before_action :set_post, only: %i[show edit update destroy]
+  before_action :authenticate_creator, only: %i[edit update destroy]
 
   RESULTS_PER_PAGE = 10
 
@@ -18,6 +20,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    puts 'show'
   end
 
   # GET /posts/new
@@ -31,16 +34,14 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = Post.new(post_params)
+    valid_params = post_params.merge(creator: current_user)
+    @post = Post.new(valid_params)
 
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to post_url(@post), notice: 'Post was successfully created.' }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.save
+      @post.images.attach(valid_params[:images]) if valid_params[:images]
+      redirect_to post_url(@post), notice: 'Post was successfully created.'
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -76,6 +77,13 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:user_id, :content, :page)
+    params.require(:post).permit(:user_id, :content, :page, :images, images: {})
+  end
+
+  def authenticate_creator
+    return if @post.creator == current_user
+
+    flash[:alert] = 'You are not authorized to perform this action'
+    redirect_to root_path
   end
 end

@@ -8,9 +8,10 @@ class PostComponent < ViewComponent::Base
   delegate :first_name, to: :profile
   delegate :last_name, to: :profile
 
-  def initialize(post:, current_user: nil)
+  def initialize(post:, current_user: nil, &block)
     @post = post
     @current_user = current_user
+    @body = block
   end
 
   def creator_name

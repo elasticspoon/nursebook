@@ -1,5 +1,8 @@
 <p style="color: green"><%= notice %></p>
-<%= render(PostComponent.new(post: @post, current_user:)) %>
+<%= render (PostComponent.new(post: @post, current_user:) do
+  render(PostContentComponent.new(body: @post.content, images: @post.images))
+  end )
+   %>
 <div>
   <%= link_to "Edit this post", edit_post_path(@post) %> |
   <%= link_to "Back to posts", posts_path %>
