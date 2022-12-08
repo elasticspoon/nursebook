@@ -14,7 +14,7 @@
     <%= form.text_field :content, placeholder: 'What is on your mind?' %>
   </div>
   <div>
-    <div class="post__image-upload " data-post-target="uploadField">
+    <div class="post__image-upload hidden" data-post-target="uploadField">
       <%= form.label :images %>
       <%= form.file_field :images %>
     </div>
@@ -22,15 +22,17 @@
     action: 'post#addUploadField:prevent',
     post_target: 'uploadButton'} %>
   </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+<%= turbo_frame_tag id=dom_id(post, :image_previews) do %>
   <div class="post__images-gallery">
     <% post.images.each do |image| %>
       <div class="post__image-preview">
         <%= image_tag image.variant(:thumb) %>
-        <%= link_to 'delete image', not_implemented_path %>
+        <%= button_to 'Delete', delete_image_path(image_id: image.id, id: post.id), method: :delete %>
       </div>
     <% end %>
-  </div>
-  <div>
-    <%= form.submit %>
   </div>
 <% end %>

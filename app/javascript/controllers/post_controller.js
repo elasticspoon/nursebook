@@ -69,4 +69,6 @@ export default class extends Controller {
   }
 
   removeUploadField() {}
+
+  removeUploadedImage(event) {}
 }

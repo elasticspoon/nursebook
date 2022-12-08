@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: %i[create edit update destroy]
-  before_action :set_post, only: %i[show edit update destroy]
-  before_action :authenticate_creator, only: %i[edit update destroy]
+  before_action :set_post, only: %i[show edit update destroy purge_attached_image]
+  before_action :authenticate_creator, only: %i[edit update destroy purge_attached_image]
 
   RESULTS_PER_PAGE = 10
 
@@ -20,7 +20,6 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
-    puts 'show'
   end
 
   # GET /posts/new
@@ -66,6 +65,12 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def purge_attached_image
+    @image = ActiveStorage::Attachment.find(params[:image_id])
+    @image.purge_later
+    render :edit
   end
 
   private

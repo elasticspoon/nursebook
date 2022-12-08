@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :requests
   resources :user_profiles
   resources :comments
+  delete 'posts/:id/delete_image/:image_id', to: 'posts#purge_attached_image', as: 'delete_image'
   put '/likes/:id', to: 'likes#create'
   get '/likes(/:id)', to: 'likes#show', as: 'like'
   get '/:target_type/:target_id/index_likers', to: 'likes#index_likers', as: 'index_likers'
