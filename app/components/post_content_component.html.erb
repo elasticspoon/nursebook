@@ -6,9 +6,6 @@
     <div class="post__images-carousel" data-controller="carousel">
       <%= inline_svg_tag 'left_chevron.svg' %>
       <div class="post__images-container">
-        <p>
-          <%= @images.size %> images
-        </p>
         <% @images.each do |image| %>
           <%= image_tag image.variant(:default), class: 'post__image' %>
         <% end %>

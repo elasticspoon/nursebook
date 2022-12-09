@@ -16,9 +16,9 @@
   <div>
     <div class="post__image-upload hidden" data-post-target="uploadField">
       <%= form.label :images %>
-      <%= form.file_field :images %>
+      <%= form.file_field :images, multiple: true %>
     </div>
-    <%= form.button 'Upload Image', data: {
+    <%= form.button 'Add Image', data: {
     action: 'post#addUploadField:prevent',
     post_target: 'uploadButton'} %>
   </div>
@@ -29,10 +29,10 @@
 <%= turbo_frame_tag id=dom_id(post, :image_previews) do %>
   <div class="post__images-gallery">
     <% post.images.each do |image| %>
-      <div class="post__image-preview">
+      <%= content_tag(:div, class: 'post_image-preview', id: dom_id(image)) do %>
         <%= image_tag image.variant(:thumb) %>
         <%= button_to 'Delete', delete_image_path(image_id: image.id, id: post.id), method: :delete %>
-      </div>
+      <% end %>
     <% end %>
   </div>
 <% end %>

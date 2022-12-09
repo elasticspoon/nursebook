@@ -10,6 +10,7 @@ export default class extends Controller {
     "newComment",
     "newCommentLink",
     "uploadField",
+    "uploadButton",
   ];
   static values = { liked: Boolean, count: Number, currentUserName: String };
 
@@ -67,8 +68,4 @@ export default class extends Controller {
     upload_field.classList.remove("hidden");
     this.uploadFieldTarget.insertAdjacentElement("beforebegin", upload_field);
   }
-
-  removeUploadField() {}
-
-  removeUploadedImage(event) {}
 }

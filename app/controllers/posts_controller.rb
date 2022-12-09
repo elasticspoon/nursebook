@@ -37,7 +37,6 @@ class PostsController < ApplicationController
     @post = Post.new(valid_params)
 
     if @post.save
-      @post.images.attach(valid_params[:images]) if valid_params[:images]
       redirect_to post_url(@post), notice: 'Post was successfully created.'
     else
       render :new, status: :unprocessable_entity
@@ -45,15 +44,17 @@ class PostsController < ApplicationController
   end
 
   # PATCH/PUT /posts/1 or /posts/1.json
+  # image attachment is done manually because I don't
+  # want the update method to delete the existing images
   def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to post_url(@post), notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    update_params = post_params.except('images')
+    images = post_params[:images]
+
+    if @post.update(update_params)
+      @post.images.attach(images)
+      redirect_to post_url(@post), notice: 'Post was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -70,7 +71,7 @@ class PostsController < ApplicationController
   def purge_attached_image
     @image = ActiveStorage::Attachment.find(params[:image_id])
     @image.purge_later
-    render :edit
+    render turbo_stream: turbo_stream.remove(@image)
   end
 
   private
@@ -82,7 +83,7 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:user_id, :content, :page, :images, images: {})
+    params.require(:post).permit(:user_id, :content, :page, images: [])
   end
 
   def authenticate_creator
