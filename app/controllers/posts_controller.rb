@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy purge_attached_image]
   before_action :authenticate_creator, only: %i[edit update destroy purge_attached_image]
 
+  # layout false
   RESULTS_PER_PAGE = 10
 
   # GET /posts or /posts.json
@@ -11,6 +12,8 @@ class PostsController < ApplicationController
     offset = @page * RESULTS_PER_PAGE
     @posts = Post.order(created_at: :desc)
       .limit(RESULTS_PER_PAGE).offset(offset)
+
+    render layout: 'application'
   end
 
   def index_commentors
