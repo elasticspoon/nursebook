@@ -8,6 +8,7 @@
     <% unless @posts.empty? %>
       <% @posts.each do |post| %>
         <%= turbo_frame_tag post, src: post_path(post), loading: :lazy do %>
+          <%= render(PostComponent.new) %>
         <% end %>
       <% end %>
       <%= turbo_frame_tag id="posts_index_page_#{@page + 1}", class: 'posts_list',

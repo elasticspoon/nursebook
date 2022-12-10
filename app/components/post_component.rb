@@ -3,15 +3,22 @@
 class PostComponent < ViewComponent::Base
   include ApplicationHelper
 
-  delegate :creator, to: :@post
-  delegate :profile, to: :creator
-  delegate :first_name, to: :profile
-  delegate :last_name, to: :profile
+  attr_reader :post, :current_user
 
-  def initialize(post:, current_user: nil, &block)
+  delegate :creator, to: :post
+
+  def initialize(post: Post.new, current_user: nil, &block)
     @post = post
     @current_user = current_user
     @body = block
+  end
+
+  def first_name
+    creator&.profile&.first_name
+  end
+
+  def last_name
+    creator&.profile&.last_name
   end
 
   def creator_name
@@ -19,15 +26,19 @@ class PostComponent < ViewComponent::Base
   end
 
   def post_age
-    time_ago_in_words(@post.created_at)
+    creation_time = post.created_at
+
+    time_ago_in_words(creation_time) if creation_time
   end
 
   def liked
-    @post.liked_by?(@current_user)
+    post.liked_by?(current_user)
   end
 
   def likes_num
-    @post.likers.size
+    return 0 unless post
+
+    post.likers.size
   end
 
   def others_likes
@@ -73,7 +84,7 @@ class PostComponent < ViewComponent::Base
   end
 
   def creator?
-    @current_user == @post.creator
+    !current_user.nil? && current_user == creator
   end
 
   private

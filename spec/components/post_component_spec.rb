@@ -10,6 +10,10 @@ RSpec.describe PostComponent, type: :component do
   let(:post_component) { described_class.new(post:, current_user:) }
 
   describe 'component state' do
+    it 'can be rendered when post is nil' do
+      expect { render_inline(described_class.new) }.not_to raise_error
+    end
+
     describe 'stimulus controller' do
       it 'has a controller post' do
         render_component = render_inline(post_component)
@@ -87,6 +91,16 @@ RSpec.describe PostComponent, type: :component do
   end
 
   describe '#creator?' do
+    it 'does not throw an error if the post is nil' do
+      post_component = described_class.new
+      expect { post_component.creator? }.not_to raise_error
+    end
+
+    it 'returns false if the current user is nil and post is nil' do
+      post_component = described_class.new
+      expect(post_component.creator?).to be false
+    end
+
     it 'returns true if the current user is the post creator' do
       post = build_stubbed(:post, creator: current_user)
       post_component = described_class.new(post:, current_user:)
@@ -101,6 +115,11 @@ RSpec.describe PostComponent, type: :component do
   end
 
   describe '#likes_count' do
+    it 'does not throw an error if the post is nil' do
+      post_component = described_class.new
+      expect { post_component.likes_count }.not_to raise_error
+    end
+
     it 'returns an empty span if the post has no likes' do
       allow(post).to receive(:likers).and_return([])
       expect(post_component.likes_count).to have_css 'span', text: ''

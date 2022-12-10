@@ -4,9 +4,9 @@
   data-post-count-value=<%= others_likes %>
   data-post-current-user-name-value=<%= @current_user&.name %>>
     <div class="">
-      <div class="small_user__container">
-        <div><%= inline_svg_tag 'user_placeholder.svg', class: 'small_user__avatar' %></div>
-        <div class="small_user__data-container">
+      <div class="post__title-container">
+        <%= render(UserSmallComponent.new(user: creator)) %>
+        <div class="post__user-data-container">
           <span><%= creator_name %></span>
           <div class="post__post-data">
             <% post_data.each do |data| %>
@@ -26,13 +26,13 @@
               <span>Placeholder</span>
             <% end %>
             <% if creator? %>
-              <%= form_with model: @post, method: :delete, html: { style: 'display: flex;' } do |form| %>
+              <%= form_with model: post, method: :delete, html: { style: 'display: flex;' } do |form| %>
                 <%= form.button class: 'post__menu-item' do %>
                   <%= inline_svg_tag 'trashcan.svg' %>
                   <span>Delete Post</span>
                 <% end %>
               <% end %>
-              <%= link_to edit_post_path(@post), class: 'post__menu-item' do %>
+              <%= link_to edit_post_path(post), class: 'post__menu-item' do %>
                 <%= inline_svg_tag 'pencil.svg' %>
                 <span>Edit Post</span>
               <% end %>
@@ -40,55 +40,56 @@
           </div>
         </div>
       </div>
-      <%= @body.call %>
-      <div class="post__social-data-wrapper">
-        <div class="post__likes-data post__hover-data-container">
-          <%= inline_svg_tag('cross.svg', 
+    </div>
+    <%= @body&.call %>
+    <div class="post__social-data-wrapper">
+      <div class="post__likes-data post__hover-data-container">
+        <%= inline_svg_tag('cross.svg', 
           class: "post__likes-icon #{'hidden' if likes_num.zero?}",
           data: { post_target: 'likeIcon'}) %>
-          <%= likes_count %>
-          <%= tag.turbo_frame id: dom_id(@post, :likers_list), class: 'post__hover-data',
-             src: index_likers_path(target_id: @post.id, target_type: @post.class.name), loading: :lazy do %>
-            Loading...
-          <% end %>
-        </div>
-        <div class="post__hover-data-container">
-          <%= tag.turbo_frame id: dom_id(@post, :commentors_list), class: 'post__hover-data', loading: :lazy,
-          src: index_commentors_path(id: @post.id) do %>
-            Loading...
-          <% end %>
-          <%= comments_count %>
-        </div>
-        <%= shares_count %>
-      </div>
-      <div class="post__social-actions">
-        <%= tag.turbo_frame id: dom_id(@post, :like_button), class: 'post__social-button-container',
-          src: like_path(like: { target_id: @post.id, target_type: 'post' }), loading: :lazy do %>
-          <%= render_like_button %>
+        <%= likes_count %>
+        <%= tag.turbo_frame id: dom_id(post, :likers_list), class: 'post__hover-data',
+             src: index_likers_path(target_id: post.id, target_type: post.class.name), loading: :lazy do %>
+          Loading...
         <% end %>
-        <div class="post__social-button-container">
-          <%= link_to build_new_comment_path(@post, @current_user),
-           data: { turbo_frame: dom_id(@post, :new_comment),
+      </div>
+      <div class="post__hover-data-container">
+        <%= tag.turbo_frame id: dom_id(post, :commentors_list), class: 'post__hover-data', loading: :lazy,
+          src: index_commentors_path(id: post.id) do %>
+          Loading...
+        <% end %>
+        <%= comments_count %>
+      </div>
+      <%= shares_count %>
+    </div>
+    <div class="post__social-actions">
+      <%= tag.turbo_frame id: dom_id(post, :like_button), class: 'post__social-button-container',
+          src: like_path(like: { target_id: post.id, target_type: 'post' }), loading: :lazy do %>
+        <%= render_like_button %>
+      <% end %>
+      <div class="post__social-button-container">
+        <%= link_to build_new_comment_path(post, @current_user),
+           data: { turbo_frame: dom_id(post, :new_comment),
             action: 'click->post#toggleNewComment',
             post_target: 'newCommentLink',
             }, class: 'post__social-button' do %>
-            <%= inline_svg_tag 'chat_bubble_left.svg', class: 'post__social-button-icon' %>
-            <span>Comment</span>
-          <% end %>
-        </div>
-        <div class="post__social-button-container">
-          <%= link_to not_implemented_path, class: 'post__social-button' do %>
-            <%= inline_svg_tag 'share_icon.svg', class: 'post__social-button-icon' %>
-            <span>Share</span>
-          <% end %>
-        </div>
+          <%= inline_svg_tag 'chat_bubble_left.svg', class: 'post__social-button-icon' %>
+          <span>Comment</span>
+        <% end %>
+      </div>
+      <div class="post__social-button-container">
+        <%= link_to not_implemented_path, class: 'post__social-button' do %>
+          <%= inline_svg_tag 'share_icon.svg', class: 'post__social-button-icon' %>
+          <span>Share</span>
+        <% end %>
       </div>
     </div>
-    <div class="comment__comments-list hidden" data-post-target="commentList">
-      <%= tag.turbo_frame id: dom_id(@post, :comments_list) %>
-    </div>
-    <div class="comment__new_comment hidden" data-post-target="newComment">
-      <%= tag.turbo_frame id: dom_id(@post, :new_comment) %>
-    </div>
   </div>
+  <div class="comment__comments-list hidden" data-post-target="commentList">
+    <%= tag.turbo_frame id: dom_id(@post, :comments_list) %>
+  </div>
+  <div class="comment__new_comment hidden" data-post-target="newComment">
+    <%= tag.turbo_frame id: dom_id(@post, :new_comment) %>
+  </div>
+</div>
 <% end %>
