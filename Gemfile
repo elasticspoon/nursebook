@@ -68,6 +68,7 @@ group :development do
 end
 
 gem 'inline_svg'
+gem 'responders'
 gem 'view_component'
 
 group :development do
@@ -101,4 +102,4 @@ group :development, :test do
 end
 gem 'devise'
 
-gem "image_processing", "~> 1.12"
+gem 'image_processing', '~> 1.12'
