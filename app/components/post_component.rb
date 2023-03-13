@@ -1,24 +1,22 @@
 # frozen_string_literal: true
 
 class PostComponent < ViewComponent::Base
-  include ApplicationHelper
-
   attr_reader :post, :current_user
 
   delegate :creator, to: :post
 
-  def initialize(post: Post.new, current_user: nil, &block)
+  def initialize(post: nil, current_user: nil, &block)
     @post = post
     @current_user = current_user
     @body = block
   end
 
   def first_name
-    creator&.profile&.first_name
+    creator.profile.first_name
   end
 
   def last_name
-    creator&.profile&.last_name
+    creator.profile.last_name
   end
 
   def creator_name
@@ -26,9 +24,7 @@ class PostComponent < ViewComponent::Base
   end
 
   def post_age
-    creation_time = post.created_at
-
-    time_ago_in_words(creation_time) if creation_time
+    time_ago_in_words(post.created_at)
   end
 
   def liked
@@ -36,8 +32,6 @@ class PostComponent < ViewComponent::Base
   end
 
   def likes_num
-    return 0 unless post
-
     post.likers.size
   end
 
@@ -54,7 +48,7 @@ class PostComponent < ViewComponent::Base
   end
 
   def comments_count
-    comments_count = @post.total_comments.size
+    comments_count = post.total_comments.size
     return if comments_count.zero?
 
     link_to "#{comments_count} Comments",
@@ -80,11 +74,15 @@ class PostComponent < ViewComponent::Base
   end
 
   def render_like_button
-    render(LikeButtonComponent.new(like_object: Like.new(target: @post)))
+    render(LikeButtonComponent.new(like_object: Like.new(target: post)))
   end
 
   def creator?
-    !current_user.nil? && current_user == creator
+    current_user == creator
+  end
+
+  def build_new_comment_path(parent, current_user)
+    new_comment_path(comment: { parent_id: parent.id, parent_type: parent.class.name, user_id: current_user&.id })
   end
 
   private
@@ -100,6 +98,29 @@ class PostComponent < ViewComponent::Base
       ''
     end
   end
+
+  # def define_nil_methods
+  #   %i[
+  #     creator
+  #     first_name
+  #     likes_count
+  #     last_name
+  #     creator_name
+  #     post_age
+  #     liked
+  #     others_likes
+  #     comments_count
+  #   ].each do |method|
+  #     define_singleton_method(method) { nil }
+  #   end
+
+  #   define_singleton_method(:likes_num) { 0 }
+  #   define_singleton_method(:dom_id) { |*_args| nil }
+  #   define_singleton_method(:edit_post_path) { |*_args, **_kwargs| '' }
+  #   define_singleton_method(:index_likers_path) { |*_args, **_kwargs| '' }
+  #   define_singleton_method(:index_commentors_path) { |*_args, **_kwargs| '' }
+  #   define_singleton_method(:build_new_comment_path) { |*_args, **_kwargs| '' }
+  # end
 end
 
 # rubocop:enable Lint/MissingSuper

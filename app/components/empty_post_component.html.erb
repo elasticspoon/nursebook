@@ -1,0 +1,54 @@
+  
+<div class="post">
+  <div class="">
+    <div class="post__title-container">
+      <div class="post__user-data-container">
+        <span><%= creator_name %></span>
+        <div class="post__post-data">
+        </div>
+      </div>
+      <div class="post__menu-container" data-controller="dropdown">
+        <button type="button" class="post__menu-icon-container"
+          data-action="dropdown#toggle click@window->dropdown#hide"
+          data-dropdown-target="button">
+          <%= inline_svg_tag 'ellipsis_horizontal.svg' %>
+        </button>
+        <div class="post__menu hidden" data-dropdown-target="menu">
+          <%= link_to not_implemented_path, class: 'post__menu-item' do %>
+            <%= inline_svg_tag 'question_mark.svg' %>
+            <span>Placeholder</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="post__social-data-wrapper">
+    <div class="post__likes-data post__hover-data-container">
+      <%= inline_svg_tag('cross.svg', 
+          class: "post__likes-icon",
+          data: { post_target: 'likeIcon'}) %>
+      <span>Loading...</span>
+    </div>
+    <div class="post__hover-data-container">
+      <span>Loading...</span>
+    </div>
+    <span>Loading...</span>
+  </div>
+  <div class="post__social-actions">
+    <div class="post__social-button-container">
+      <%= render_like_button %>
+    </div>
+    <div class="post__social-button-container">
+      <div class="post__social-button" >
+        <%= inline_svg_tag 'chat_bubble_left.svg', class: 'post__social-button-icon' %>
+        <span>Comment</span>
+      </div>
+    </div>
+    <div class="post__social-button-container">
+      <%= link_to not_implemented_path, class: 'post__social-button', data: { target: '_top'} do %>
+        <%= inline_svg_tag 'share_icon.svg', class: 'post__social-button-icon' %>
+        <span>Share</span>
+      <% end %>
+    </div>
+  </div>
+</div>

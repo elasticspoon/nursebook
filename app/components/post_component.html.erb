@@ -2,7 +2,7 @@
   <div class="post" data-controller="post" 
   data-post-liked-value=<%= liked %> 
   data-post-count-value=<%= others_likes %>
-  data-post-current-user-name-value=<%= @current_user&.name %>>
+  data-post-current-user-name-value=<%= current_user&.name %>>
     <div class="">
       <div class="post__title-container">
         <%= render(UserSmallComponent.new(user: creator)) %>
@@ -49,13 +49,13 @@
           data: { post_target: 'likeIcon'}) %>
         <%= likes_count %>
         <%= tag.turbo_frame id: dom_id(post, :likers_list), class: 'post__hover-data',
-             src: index_likers_path(target_id: post.id, target_type: post.class.name), loading: :lazy do %>
+             src: index_likers_path(target_id: post&.id, target_type: post&.class&.name), loading: :lazy do %>
           Loading...
         <% end %>
       </div>
       <div class="post__hover-data-container">
         <%= tag.turbo_frame id: dom_id(post, :commentors_list), class: 'post__hover-data', loading: :lazy,
-          src: index_commentors_path(id: post.id) do %>
+          src: index_commentors_path(id: post&.id) do %>
           Loading...
         <% end %>
         <%= comments_count %>
@@ -64,11 +64,11 @@
     </div>
     <div class="post__social-actions">
       <%= tag.turbo_frame id: dom_id(post, :like_button), class: 'post__social-button-container',
-          src: like_path(like: { target_id: post.id, target_type: 'post' }), loading: :lazy do %>
+          src: like_path(like: { target_id: post&.id, target_type: 'post' }), loading: :lazy do %>
         <%= render_like_button %>
       <% end %>
       <div class="post__social-button-container">
-        <%= link_to build_new_comment_path(post, @current_user),
+        <%= link_to build_new_comment_path(post, current_user),
            data: { turbo_frame: dom_id(post, :new_comment),
             action: 'click->post#toggleNewComment',
             post_target: 'newCommentLink',
@@ -78,18 +78,17 @@
         <% end %>
       </div>
       <div class="post__social-button-container">
-        <%= link_to not_implemented_path, class: 'post__social-button' do %>
+        <%= link_to not_implemented_path, class: 'post__social-button', data: { target: '_top'} do %>
           <%= inline_svg_tag 'share_icon.svg', class: 'post__social-button-icon' %>
           <span>Share</span>
         <% end %>
       </div>
     </div>
+    <div class="comment__comments-list hidden" data-post-target="commentList">
+      <%= tag.turbo_frame id: dom_id(post, :comments_list) %>
+    </div>
+    <div class="comment__new_comment hidden" data-post-target="newComment">
+      <%= tag.turbo_frame id: dom_id(post, :new_comment) %>
+    </div>
   </div>
-  <div class="comment__comments-list hidden" data-post-target="commentList">
-    <%= tag.turbo_frame id: dom_id(@post, :comments_list) %>
-  </div>
-  <div class="comment__new_comment hidden" data-post-target="newComment">
-    <%= tag.turbo_frame id: dom_id(@post, :new_comment) %>
-  </div>
-</div>
 <% end %>
