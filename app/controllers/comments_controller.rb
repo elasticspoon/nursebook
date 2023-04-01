@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: %i[show edit update destroy]
   before_action :build_new_comment, only: :new
 
-  layout false
+  # layout false
 
   # GET /comments
   def index

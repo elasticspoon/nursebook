@@ -39,3 +39,4 @@
 /node_modules
 /.vscode
 /coverage
+spec/nursebook.code-workspace

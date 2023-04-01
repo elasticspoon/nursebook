@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe CommentComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:comment) { build_stubbed(:comment) }
+  let(:user) { build_stubbed(:user) }
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+  context 'when there is a current_user' do
+    it 'renders without throwing an error' do
+      expect { render_inline(described_class.new(comment:)) }.not_to raise_error
+    end
+  end
+  context 'when there is no current_user' do
+    it 'renders without throwing an error' do
+      expect { render_inline(described_class.new(comment:, current_user: user)) }.not_to raise_error
+    end
+  end
 end
