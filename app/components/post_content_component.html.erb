@@ -1,10 +1,16 @@
-<div class="post__content">
-  <p class="post__body-text <%= 'post__body-text--has-images' if @images.any? %>">
+<div class="post__content" data-controller="modal">
+  <p class="post__body-text <%= 'post__body-text--has-images' if @images&.any? %>">
     <%= @body %>
   </p>
-  <% if @images.any? %>
-    <div class="post__images-carousel-container" data-controller="carousel" 
-    data-carousel-target="carouselContainer" data-carousel-num-items-value="<%= @images.size %>">
+  <% if @images&.any? %>
+    <%= image_tag @images.first.variant(:default), class: 'post__image' %>
+    <button class="button post__images-button" data-action="modal#toggle">
+      <span><%= "Show #{@images.size - 1} more images..." %></span>
+    </button>
+  <% end %>
+  <%= render(ModalComponent.new) do %>
+    <div class="post__images-carousel-container" data-controller="carousel"
+    data-carousel-target="carouselContainer" data-carousel-num-items-value="<%= @images&.size %>">
       <button class="post__images-carousel-button" data-carousel-target="carouselLeft" data-action="carousel#previous">
         <%= inline_svg_tag 'left_chevron.svg' %>
       </button>

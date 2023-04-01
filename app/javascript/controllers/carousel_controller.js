@@ -10,7 +10,7 @@ export default class extends Controller {
   ];
   static values = { index: Number, numItems: Number };
 
-  connect() {}
+  // connect() {}
 
   next() {
     this.indexValue = this.indexValue + 1;
@@ -21,6 +21,8 @@ export default class extends Controller {
   }
 
   indexValueChanged(current, old) {
+    console.log(this.carouselContentTarget);
+    console.log(this.carouselContainer);
     this.scrollCarousel(current);
     let maxIndex = this.numItemsValue - 1;
 

@@ -33,6 +33,8 @@
 
 .post__content {
   padding: 0 12px;
+  display: flex;
+  flex-direction: column;
 }
 
 .post__body-text--has-images {
@@ -250,7 +252,15 @@
 
 .post__images-carousel-content {
   display: flex;
+  position: relative;
   overflow-x: hidden;
+}
+
+.post__images-button {
+  margin-top: 10px;
+  padding: 10px 0;
+  border: #4e4f50 2px solid;
+  font-size: 14px;
 }
 
 .post__images-carousel-button {
