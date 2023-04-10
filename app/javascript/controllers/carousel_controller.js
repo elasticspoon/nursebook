@@ -10,7 +10,7 @@ export default class extends Controller {
   ];
   static values = { index: Number, numItems: Number };
 
-  connect() {}
+  // connect() {}
 
   next() {
     this.indexValue = this.indexValue + 1;
