@@ -1,21 +1,21 @@
 <h1>New post</h1>
 <%= turbo_frame_tag id="new_post" do %>
   <div data-controller="modal">
-    <div class="new_post__interactable" data-action="click->modal#toggle">
+    <div class="new_post__interactable">
       <div class="new_post__message">
         <%= render(UserSmallComponent.new(user: current_user)) %>
-        <span>Whats on your mind, <%= current_user.name %>?</span>
+        <span data-action="click->modal#toggle">Whats on your mind, <%= current_user.name %>?</span>
       </div>
       <div class="new_post__options">
-        <div class="post__social-button">
+        <div class="post__social-button" data-action="click->modal#toggle">
           <%= image_tag 'https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/c0dWho49-X3.png' %>
           <span>Live Video</span>
         </div>
-        <div class="post__social-button">
+        <div class="post__social-button" data-action="click->modal#toggle">
           <%= image_tag 'https://static.xx.fbcdn.net/rsrc.php/v3/y7/r/Ivw7nhRtXyo.png' %>
           <span>Photo/Video</span>
         </div>
-        <div class="post__social-button">
+        <div class="post__social-button" data-action="click->modal#toggle">
           <%= image_tag 'https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Y4mYLVOhTwq.png' %>
           <span>Feeling/Activity</span>
         </div>
