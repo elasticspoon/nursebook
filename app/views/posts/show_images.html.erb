@@ -1,0 +1,18 @@
+<%= turbo_frame_tag id=dom_id(@post, :images) do %>
+  <div class="post__images-carousel-container" data-controller="carousel"
+    data-carousel-target="carouselContainer" data-carousel-num-items-value="<%= @images&.size %>">
+    <button class="post__images-carousel-button" data-carousel-target="carouselLeft" data-action="carousel#previous">
+      <%= inline_svg_tag 'left_chevron.svg' %>
+    </button>
+    <div class="post__images-carousel-content" data-carousel-target="carouselContent">
+      <% @images.each do |image| %>
+        <%= image_tag image.variant(:default), class: 'post__image' %>
+      <% end %>
+    </div>
+    <button class="post__images-carousel-button" data-carousel-target="carouselRight" data-action="carousel#next">
+      <%= inline_svg_tag 'left_chevron.svg', style: 'transform: rotate(180deg);' %>
+    </button>
+  </div>
+<% end %>
+<%= render(ModalComponent.new) do %>
+<% end %>

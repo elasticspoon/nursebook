@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: %i[create edit update destroy]
-  before_action :set_post, only: %i[show edit update destroy purge_attached_image]
+  before_action :set_post, only: %i[show show_images edit update destroy purge_attached_image]
   before_action :authenticate_creator, only: %i[edit update destroy purge_attached_image]
 
   # layout false
@@ -23,6 +23,10 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+  end
+
+  def show_images
+    @images = @post.images
   end
 
   # GET /posts/new

@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 <%= render (PostComponent.new(post: @post, current_user:) do
-  render(PostContentComponent.new(body: @post.content, images: @post.images))
+  render(PostContentComponent.new(post: @post))
   end )
    %>
 <div>

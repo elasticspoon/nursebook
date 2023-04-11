@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   put '/likes/:id', to: 'likes#create'
   get '/likes(/:id)', to: 'likes#show', as: 'like'
   get '/:target_type/:target_id/index_likers', to: 'likes#index_likers', as: 'index_likers'
-  get '/post/:id/index_commentors', to: 'posts#index_commentors', as: 'index_commentors'
+  get '/posts/:id/index_commentors', to: 'posts#index_commentors', as: 'index_commentors'
+  get '/posts/:id/images', to: 'posts#show_images', as: 'post_images'
   resources :likes, only: %i[show create destroy]
   resources :posts
   root 'posts#index'
