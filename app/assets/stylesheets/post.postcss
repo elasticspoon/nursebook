@@ -297,3 +297,34 @@
     padding: 8px;
   }
 }
+
+.new_post__interactable {
+  display: flex;
+  background-color: #242526;
+  border-radius: 8px;
+  padding: 16px;
+  flex-direction: column;
+  & div {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.new_post__message {
+  border-bottom: 1px #3a3b3c solid;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  column-gap: 8px;
+  & span {
+    padding: 10px;
+    border-radius: 9999px;
+    background-color: #3a3b3c;
+    width: 100%;
+    font-size: 17px;
+    color: rgb(176, 179, 184);
+  }
+}
+
+.new_post__options {
+  justify-content: space-around;
+}
