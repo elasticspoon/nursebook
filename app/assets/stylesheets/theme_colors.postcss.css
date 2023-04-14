@@ -1,0 +1,14 @@
+:root {
+  --primary-text: rgb(228, 230, 235);
+  --primary-text-2: #b0b3b8;
+  --foreground-1: white;
+  --background-1: #3a3b3c;
+  --background-2: #242526;
+  --background-3: #18191a;
+  --background-highlight-1: #4f5052;
+  --background-highlight-2: #4e4f50;
+  --highlight-1: #2f3031;
+  --disabled-button-background: rgba(255, 255, 255, 0.2);
+  --divider: #3e4042;
+  --theme-highlight-1: #de206f;
+}
