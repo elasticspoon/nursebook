@@ -1,4 +1,4 @@
-<%= form_with(model: post, data: { controller: 'post' }) do |form| %>
+  <%= form_with(model: post, data: { controller: 'post' }, class: 'new_post__form') do |form| %>
   <% if post.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -9,21 +9,34 @@
       </ul>
     </div>
   <% end %>
-  <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.text_field :content, placeholder: 'What is on your mind?' %>
-  </div>
-  <div>
-    <div class="post__image-upload hidden" data-post-target="uploadField">
-      <%= form.label :images %>
-      <%= form.file_field :images, multiple: true %>
+  <span class="new_post__form-title">Create Post</span>
+  <div class="new_post__content-container">
+    <div class="new_post__form-user">
+      <%= render(UserSmallComponent.new(user: current_user)) %>
+      <span><%= current_user.name %></span>
     </div>
-    <%= form.button 'Add Image', data: {
-    action: 'post#addUploadField:prevent',
-    post_target: 'uploadButton'} %>
-  </div>
-  <div>
-    <%= form.submit %>
+    <div>
+      <%# form.label :content, style: "display: block" %>
+      <%= form.text_area :content, placeholder: "What's on your mind?", class: 'new_post__message-area' %>
+    </div>
+    <div class="new_post__form-attachments">
+      <span>Add to your post</span>
+      <div class="post__image-upload hidden" data-post-target="uploadField">
+        <%= form.label :images %>
+        <%= form.file_field :images, multiple: true %>
+      </div>
+      <%= form.button data: { action: 'post#addUploadField:prevent',
+    post_target: 'uploadButton'}, class: 'button button--padded' do %>
+        <%= image_tag 'https://static.xx.fbcdn.net/rsrc.php/v3/y7/r/Ivw7nhRtXyo.png' %>
+      <% end %>
+      <%= image_tag 'https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/b37mHA1PjfK.png', class: 'button button--padded' %>
+      <%= image_tag 'https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Y4mYLVOhTwq.png', class: 'button button--padded' %>
+      <%= image_tag 'https://static.xx.fbcdn.net/rsrc.php/v3/y1/r/8zlaieBcZ72.png', class: 'button button--padded' %>
+      <%= image_tag 'https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/pkbalDbTOVI.png', class: 'button button--padded' %>
+    </div>
+    <div>
+      <%= form.submit 'Post', class: 'button new_post__form-button' %>
+    </div>
   </div>
 <% end %>
 <div class="post__images-gallery">

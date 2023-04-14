@@ -1,0 +1,107 @@
+.new_post__form {
+  display: flex;
+  background-color: var(--background-2);
+  border-radius: 8px;
+  flex-direction: column;
+  border: solid 1px var(--highlight-1);
+}
+.new_post__form-title {
+  padding: 16px;
+  width: 100%;
+  text-align: center;
+  color: var(--primary-text);
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.new_post__form-user {
+  display: flex;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary-text);
+  column-gap: 8px;
+}
+
+.new_post__interactable {
+  display: flex;
+  background-color: var(--background-2);
+  border-radius: 8px;
+  padding: 16px;
+  flex-direction: column;
+  & div {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.new_post__message {
+  border-bottom: 1px var(--background-1) solid;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  column-gap: 8px;
+  & span {
+    padding: 10px;
+    border-radius: 9999px;
+    background-color: var(--background-1);
+    width: 100%;
+    font-size: 17px;
+    color: rgb(176, 179, 184);
+    &:hover {
+      background-color: var(--background-highlight-1);
+    }
+  }
+}
+
+.new_post__message-area {
+  background-color: transparent;
+  border: transparent;
+  width: 100%;
+  height: 120px;
+  color: var(--primary-text);
+  font-size: 24px;
+}
+
+.new_post__options {
+  justify-content: space-around;
+}
+
+.new_post__content-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  border-top: 1px solid var(--highlight-1);
+  padding: 16px;
+}
+.new_post__form-attachments {
+  display: flex;
+  padding: 12px;
+  border: 1px solid var(--divider);
+  border-radius: 8px;
+  align-items: center;
+  column-gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary-text);
+  justify-content: center;
+
+  & span {
+    margin-right: auto;
+  }
+}
+
+.new_post__form-button {
+  width: 100%;
+  color: var(--primary-text);
+  background-color: var(--theme-highlight-1);
+  height: 36px;
+  font-size: 16px;
+
+  &:hover {
+    background-color: var(--theme-highlight-1);
+    filter: brightness(130%);
+  }
+
+  &:disabled {
+    background-color: var(--disable-button-background);
+  }
+}

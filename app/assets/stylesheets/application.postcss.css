@@ -1,5 +1,7 @@
 /* Entry point for your PostCSS build */
 @import "globals.postcss";
 @import "post.postcss";
+@import "new_post.postcss";
 @import "comment.postcss";
 @import "user.postcss";
+@import "theme_colors.postcss";

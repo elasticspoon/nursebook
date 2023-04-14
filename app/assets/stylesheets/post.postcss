@@ -6,9 +6,9 @@
 }
 
 .post {
-  background-color: #242526;
+  background-color: var(--background-2);
   border-radius: 8px;
-  color: white;
+  color: var(--foreground-1);
   font-size: 15px;
 
   & a {
@@ -47,7 +47,7 @@
 
 .post__social-data-wrapper {
   display: flex;
-  border-bottom: 1px solid #3e4042;
+  border-bottom: 1px solid var(--divider);
   font-size: 15px;
   font-weight: 400;
   padding: 10px 0;
@@ -60,7 +60,7 @@
   width: 14px;
   /* color: #fcc6e2; */
   background-color: white;
-  color: #de206f;
+  color: var(--theme-highlight-1);
   fill: currentColor;
   border-radius: 9999px;
   padding: 2px;
@@ -74,7 +74,7 @@
 }
 
 .post__social-data {
-  color: #b0b3b8;
+  color: var(--primary-text-2);
   text-decoration: none;
 
   & a:visited {
@@ -95,7 +95,7 @@
 .post__post-data {
   font-size: 13px;
   font-weight: 400;
-  color: #b0b3b8;
+  color: var(--primary-text-2);
 }
 
 .post__social-button-container {
@@ -106,7 +106,7 @@
 .post__social-button {
   flex-grow: 1;
   text-align: center;
-  color: #b0b3b8;
+  color: var(--primary-text-2);
   text-decoration: none;
   font-weight: 600;
   border-radius: 4px;
@@ -137,7 +137,7 @@
 }
 
 .post__social-button--selected {
-  color: #de206f;
+  color: var(--theme-highlight-1);
 
   & .post__social-button-icon {
     fill: currentColor;
@@ -175,7 +175,7 @@
   position: absolute;
   top: 36px;
   right: 0;
-  background-color: #242526;
+  background-color: var(--background-2);
   z-index: 1;
   border-radius: 8px;
   padding: 8px 0;
@@ -190,7 +190,7 @@
   column-gap: 10px;
   flex-grow: 1;
   border-radius: 8px;
-  color: white;
+  color: var(--primary-text);
   font-size: 15px;
   font-weight: 500;
   padding: 8px;
@@ -205,7 +205,7 @@
   }
 
   &:hover {
-    background-color: #3a3b3c;
+    background-color: var(--background-1);
   }
 }
 
@@ -218,7 +218,7 @@
   border-radius: 9999px;
   border: none;
   background-color: transparent;
-  color: white;
+  color: var(--primary-text);
 
   & svg {
     height: 20px;
@@ -226,7 +226,7 @@
   }
 
   &:hover {
-    background-color: #3a3b3c;
+    background-color: var(--background-1);
   }
 }
 
@@ -260,14 +260,14 @@
 .post__images-button {
   margin-top: 10px;
   padding: 10px 0;
-  border: #4e4f50 2px solid;
+  border: var(--background-highlight-2) 2px solid;
   font-size: 14px;
 }
 
 .post__images-button {
   margin-top: 10px;
   padding: 10px 0;
-  border: #4e4f50 2px solid;
+  border: var(--background-highlight-2) 2px solid;
   font-size: 14px;
 }
 
@@ -279,7 +279,7 @@
   margin: 0 10px;
 
   &:disabled {
-    color: gray;
+    color: var(--disabled-button-background);
 
     &:hover {
       background-color: transparent;
@@ -287,7 +287,7 @@
   }
 
   &:hover {
-    background-color: gray;
+    background-color: var(--background-highlight-1);
   }
 
   & svg {
@@ -296,38 +296,4 @@
     min-width: 30px;
     padding: 8px;
   }
-}
-
-.new_post__interactable {
-  display: flex;
-  background-color: #242526;
-  border-radius: 8px;
-  padding: 16px;
-  flex-direction: column;
-  & div {
-    display: flex;
-    align-items: center;
-  }
-}
-
-.new_post__message {
-  border-bottom: 1px #3a3b3c solid;
-  padding-bottom: 12px;
-  margin-bottom: 12px;
-  column-gap: 8px;
-  & span {
-    padding: 10px;
-    border-radius: 9999px;
-    background-color: #3a3b3c;
-    width: 100%;
-    font-size: 17px;
-    color: rgb(176, 179, 184);
-    &:hover {
-      background-color: #4f5052;
-    }
-  }
-}
-
-.new_post__options {
-  justify-content: space-around;
 }
