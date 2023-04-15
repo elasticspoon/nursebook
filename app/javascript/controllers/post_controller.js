@@ -11,6 +11,8 @@ export default class extends Controller {
     "newCommentLink",
     "uploadField",
     "uploadButton",
+    "postContent",
+    "postButton",
   ];
   static values = { liked: Boolean, count: Number, currentUserName: String };
 
@@ -67,5 +69,14 @@ export default class extends Controller {
     upload_field.removeAttribute("data-post-target");
     upload_field.classList.remove("hidden");
     this.uploadFieldTarget.insertAdjacentElement("beforebegin", upload_field);
+  }
+
+  checkPostContent(event) {
+    console.log(event);
+    if (this.postContentTarget.value.length > 0) {
+      this.postButtonTarget.removeAttribute("disabled");
+    } else {
+      this.postButtonTarget.setAttribute("disabled", true);
+    }
   }
 }

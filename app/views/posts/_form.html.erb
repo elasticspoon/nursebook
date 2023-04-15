@@ -10,14 +10,15 @@
     </div>
   <% end %>
   <span class="new_post__form-title">Create Post</span>
-  <div class="new_post__content-container">
+  <div class="new_post__content-container" data-controller="post">
     <div class="new_post__form-user">
       <%= render(UserSmallComponent.new(user: current_user)) %>
       <span><%= current_user.name %></span>
     </div>
     <div>
       <%# form.label :content, style: "display: block" %>
-      <%= form.text_area :content, placeholder: "What's on your mind?", class: 'new_post__message-area' %>
+      <%= form.text_area :content, placeholder: "What's on your mind?",
+       class: 'new_post__message-area', data: {post_target: 'postContent', action: 'post#checkPostContent'} %>
     </div>
     <div class="new_post__form-attachments">
       <span>Add to your post</span>
@@ -35,7 +36,7 @@
       <%= image_tag 'https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/pkbalDbTOVI.png', class: 'button button--padded' %>
     </div>
     <div>
-      <%= form.submit 'Post', class: 'button new_post__form-button' %>
+      <%= form.submit 'Post', class: 'button new_post__form-button', data: {post_target: 'postButton'}, disabled: true %>
     </div>
   </div>
 <% end %>
