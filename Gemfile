@@ -46,7 +46,7 @@ gem 'tzinf/-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'bootsnap', require: false
 
 # Use Sass to process CSS
-# gem "sassc-rails"
+gem 'sassc-rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -65,13 +65,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-end
 
-gem 'inline_svg'
-gem 'responders'
-gem 'view_component'
-
-group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet'
@@ -80,6 +74,10 @@ group :development do
   gem 'guard-rspec', require: false
   gem 'rack-livereload'
 end
+
+gem 'inline_svg'
+gem 'responders'
+gem 'view_component'
 
 group :test do
   gem 'capybara'
