@@ -72,7 +72,6 @@ export default class extends Controller {
   }
 
   checkPostContent(event) {
-    console.log(event);
     if (this.postContentTarget.value.length > 0) {
       this.postButtonTarget.removeAttribute("disabled");
     } else {
