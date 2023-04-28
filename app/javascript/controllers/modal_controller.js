@@ -2,21 +2,26 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="modal"
 export default class extends Controller {
-  static targets = ["modal"];
-
-  toggle() {
-    this.modalTarget.classList.toggle("hidden");
-  }
-
-  hide() {
-    this.modalTarget.classList.add("hidden");
-  }
+  static targets = ["modal", "innerField", "outerField"];
 
   connect() {
-    document.onkeydown = (event) => {
-      if (event.key == "Escape") {
-        this.hide();
-      }
-    };
+    this.modalTarget.addEventListener('close', (e) => {
+      this.close();
+    })
+  }
+
+  show() {
+    this.modalTarget.showModal();
+  }
+
+  setOuterValue() {
+    this.outerFieldTarget.value = this.innerFieldTarget.value
+  }
+
+  close() {
+    if (this.innerFieldTarget.value !== 'default') {
+      this.setOuterValue();
+    }
+      this.modalTarget.close();
   }
 }

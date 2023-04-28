@@ -1,6 +1,6 @@
-<div class="modal__background hidden" data-modal-target="modal">
-  <button class="modal__cross" data-action="modal#hide">
+<dialog class="modal_fix" data-modal-target="modal">
+  <button class="modal__cross_fix" data-action="modal#close" aria-label="close">
     <%= inline_svg_tag('cross.svg') %>
   </button>
   <%= content %>
-</div>
+</dialog>

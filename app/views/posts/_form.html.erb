@@ -18,7 +18,8 @@
     <div>
       <%# form.label :content, style: "display: block" %>
       <%= form.text_area :content, placeholder: "What's on your mind?",
-       class: 'new_post__message-area', data: {post_target: 'postContent', action: 'post#checkPostContent'} %>
+      class: 'new_post__message-area', data: {
+        post_target: 'postContent', action: 'post#checkPostContent', modal_target: 'innerField'} %>
     </div>
     <div class="new_post__form-attachments">
       <span>Add to your post</span>

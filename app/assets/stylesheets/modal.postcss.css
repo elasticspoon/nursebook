@@ -1,30 +1,14 @@
-.modal {
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.modal_fix {
+  background: var(--background-1);
+  border: none;
+  &::backdrop {
+    background: var(--background-1);
+    opacity: 50%;
+
+  }
 }
 
-.modal__background {
-  position: fixed;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: var(--background-1);
-  opacity: 50%;
-}
-
-.modal__cross {
-  position: absolute;
-  top: 15px;
-  right: 15px;
+.modal__cross_fix {
   height: 60px;
   width: 60px;
   color: var(--foreground-1);

@@ -39,9 +39,10 @@
   padding-bottom: 12px;
   margin-bottom: 12px;
   column-gap: 8px;
-  & span {
+  & input {
     padding: 10px;
     border-radius: 9999px;
+    border: none;
     background-color: var(--background-1);
     width: 100%;
     font-size: 17px;

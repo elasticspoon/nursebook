@@ -4,7 +4,7 @@
     <div class="new_post__interactable">
       <div class="new_post__message">
         <%= render(UserSmallComponent.new(user: current_user)) %>
-        <span data-action="click->modal#toggle">Whats on your mind, <%= current_user.name %>?</span>
+        <input data-action="click->modal#show" data-modal-target="outerField" placeholder="Whats on your mind, <%= current_user.name %>?"></input>
       </div>
       <div class="new_post__options">
         <div class="post__social-button" data-action="click->modal#toggle">
