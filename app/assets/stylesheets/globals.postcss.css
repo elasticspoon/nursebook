@@ -27,33 +27,6 @@ body {
   display: none !important;
 }
 
-.modal__background {
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: var(--background-1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal__cross {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  height: 60px;
-  width: 60px;
-  color: var(--foreground-1);
-  background: none;
-  border: none;
-  rotate: 45deg;
-  &:hover {
-    color: var(--background-highlight-1);
-  }
-}
 
 .button {
   width: auto;
