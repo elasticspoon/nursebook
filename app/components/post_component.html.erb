@@ -1,6 +1,6 @@
 <%= tag.turbo_frame id: dom_id(@post) do %>
-  <div class="post" data-controller="post" 
-  data-post-liked-value=<%= liked %> 
+  <div class="post" data-controller="post"
+  data-post-liked-value=<%= liked %>
   data-post-count-value=<%= others_likes %>
   data-post-current-user-name-value=<%= current_user&.name %>>
     <div class="">
@@ -44,7 +44,7 @@
     <%= @body&.call %>
     <div class="post__social-data-wrapper">
       <div class="post__likes-data post__hover-data-container">
-        <%= inline_svg_tag('cross.svg', 
+        <%= inline_svg_tag('cross.svg',
           class: "post__likes-icon #{'hidden' if likes_num.zero?}",
           data: { post_target: 'likeIcon'}) %>
         <%= likes_count %>

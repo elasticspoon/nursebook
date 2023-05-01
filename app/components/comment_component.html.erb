@@ -15,7 +15,7 @@
   <% unless @comment.comments.size.zero? %>
     <div class="comment__nested-comments">
       <%= tag.turbo_frame id: dom_id(@comment, :comments_list) do %>
-        <%= link_to 'Load more', 
+        <%= link_to 'Load more',
         comments_path(comment: {parent_type: 'Comment', parent_id: @comment.id}) %>
       <% end %>
     </div>
