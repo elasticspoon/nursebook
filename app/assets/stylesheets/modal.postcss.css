@@ -1,6 +1,7 @@
-.modal_fix {
+.modal {
   background: var(--background-1);
   border: none;
+  overflow: hidden;
   &::backdrop {
     background: var(--background-1);
     opacity: 50%;
@@ -8,7 +9,7 @@
   }
 }
 
-.modal__cross_fix {
+.modal__cross {
   height: 60px;
   width: 60px;
   color: var(--foreground-1);

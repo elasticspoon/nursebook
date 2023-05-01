@@ -1,10 +1,10 @@
 <h1>New post</h1>
 <%= turbo_frame_tag id="new_post" do %>
-  <div data-controller="modal">
+  <div data-controller="modal" data-modal-username-value="<%= current_user.name %>">
     <div class="new_post__interactable">
       <div class="new_post__message">
         <%= render(UserSmallComponent.new(user: current_user)) %>
-        <input data-action="click->modal#show" data-modal-target="outerField" placeholder="Whats on your mind, <%= current_user.name %>?"></input>
+          <span data-action="click->modal#show" data-modal-target="outerField">Whats on your mind, <%= current_user.name %>?</span>
       </div>
       <div class="new_post__options">
         <div class="post__social-button" data-action="click->modal#toggle">
