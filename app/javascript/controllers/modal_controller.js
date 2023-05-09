@@ -26,6 +26,7 @@ export default class extends Controller {
   }
 
   close() {
+    // TODO: this broke for some reason
     this.setOuterValue(this.innerFieldTarget.value);
     this.modalTarget.close();
   }

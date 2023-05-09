@@ -264,13 +264,6 @@
   font-size: 14px;
 }
 
-.post__images-button {
-  margin-top: 10px;
-  padding: 10px 0;
-  border: var(--background-highlight-2) 2px solid;
-  font-size: 14px;
-}
-
 .post__images-carousel-button {
   border: none;
   background-color: transparent;

@@ -11,12 +11,14 @@ export default class extends Controller {
     "newCommentLink",
     "uploadField",
     "uploadButton",
+    "uploadPreview",
+    "addUploadField",
+    "input",
     "postContent",
     "postButton",
+    "image"
   ];
   static values = { liked: Boolean, count: Number, currentUserName: String };
-
-  connect() {}
 
   toggleLiked() {
     this.likedValue = !this.likedValue;
@@ -63,19 +65,67 @@ export default class extends Controller {
     }
   }
 
-  addUploadField() {
-    var upload_field = this.uploadFieldTarget.cloneNode(true);
-    upload_field.value = "";
-    upload_field.removeAttribute("data-post-target");
-    upload_field.classList.remove("hidden");
-    this.uploadFieldTarget.insertAdjacentElement("beforebegin", upload_field);
+  addImages() {
+    this.toggleElement(this.addUploadFieldTarget);
   }
 
-  checkPostContent(event) {
+  addUploadField() {
+    const uploadField = this.uploadFieldTarget;
+    const previewContainer = uploadField.cloneNode(true);
+    const uploadPreviewInput = previewContainer.querySelector("[data-placeholder]");
+
+    previewContainer.classList.remove("hidden");
+    uploadPreviewInput.value = "";
+    uploadPreviewInput.addEventListener("change", this.updateImagePreview);
+
+    this.uploadPreviewTarget.appendChild(previewContainer);
+    this.uploadPreviewTarget.appendChild(this.addUploadFieldTarget);
+  }
+
+  checkPostContent() {
     if (this.postContentTarget.value.length > 0) {
       this.postButtonTarget.removeAttribute("disabled");
     } else {
       this.postButtonTarget.setAttribute("disabled", true);
     }
+  }
+
+  uploadPhoto(event) {
+    if (event.target.getAttribute("data-placeholder")) {
+      this.createPreview(event);
+    }
+    this.updateImagePreview(event);
+  }
+
+// TODO: currrent issue the multiple file upload is not working
+  // both are acting as the same input
+  updateImagePreview(event) {
+    console.log('updating...');
+    const new_image = document.createElement("img");
+    new_image.classList.add("new_post__preview-image");
+    new_image.src = URL.createObjectURL(event.target.files[0]);
+
+    const container = event.target.parentElement;
+    container.lastElementChild.remove();
+    container.appendChild(new_image);
+  }
+
+  deletePreview(event) {
+    const preview = event.target.closest(".new_post__image-upload")
+    preview.remove();
+  }
+
+  createPreview() {
+    const uploadPreviewContainer = this.uploadFieldTarget;
+    const uploadPlaceholderContainer = uploadPreviewContainer.cloneNode(true);
+    const uploadPreviewInput = uploadPreviewContainer.querySelector("[data-placeholder]");
+
+    uploadPreviewInput.addEventListener("change", (e) => { this.uploadPhoto(e) });
+    uploadPreviewInput.removeAttribute("data-placeholder");
+
+    uploadPreviewContainer.removeAttribute("data-post-target");
+    
+    this.uploadPreviewTarget.appendChild(uploadPlaceholderContainer);
+    this.uploadPreviewTarget.appendChild(this.addUploadFieldTarget);
   }
 }

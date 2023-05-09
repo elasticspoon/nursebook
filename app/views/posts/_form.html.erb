@@ -13,21 +13,28 @@
   <div class="new_post__content-container" data-controller="post">
     <div class="new_post__form-user">
       <%= render(UserSmallComponent.new(user: current_user)) %>
-      <span><%= current_user.name %></span>
+      <span><%= current_user&.name %></span>
     </div>
     <div>
-      <%# form.label :content, style: "display: block" %>
       <%= form.text_area :content, placeholder: "What's on your mind?",
       class: 'new_post__message-area', data: {
         post_target: 'postContent', action: 'post#checkPostContent', modal_target: 'innerField'} %>
+      <ul class="new_post__upload-preview" data-post-target="uploadPreview">
+        <div class="new_post__image-upload hidden" data-post-target="uploadField">
+          <button type="button" class="button button--padded new_post__remove-preview" data-action="post#deletePreview"><%= inline_svg_tag 'cross.svg', class: 'min-svg' %></button>
+          <%= form.label :images, class: 'new_post__upload-button' do %>
+            <%= form.file_field :images, multiple: true, accept: '.jpg, .png, .jpeg',
+              data: { placeholder: true, post_target: 'input'} %>
+            <%= inline_svg_tag 'question_mark.svg', class: 'new_post__preview-image' %>
+          <% end %>
+        </div>
+        <div class="new_post__image-upload hidden" data-action="click->post#addUploadField" data-post-target="addUploadField">
+          <%= inline_svg_tag 'plus.svg', data: { post_target: 'image'} %>
+        </div>
+      </ul>
     </div>
     <div class="new_post__form-attachments">
-      <span>Add to your post</span>
-      <div class="post__image-upload hidden" data-post-target="uploadField">
-        <%= form.label :images %>
-        <%= form.file_field :images, multiple: true %>
-      </div>
-      <%= form.button data: { action: 'post#addUploadField:prevent',
+      <%= form.button data: { action: 'post#addImages:prevent',
     post_target: 'uploadButton'}, class: 'button button--padded' do %>
         <%= image_tag 'https://static.xx.fbcdn.net/rsrc.php/v3/y7/r/Ivw7nhRtXyo.png' %>
       <% end %>

@@ -51,3 +51,7 @@ body {
   padding: 8px;
   border-radius: 9999px;
 }
+
+.min-svg {
+  width: 20px;
+}
