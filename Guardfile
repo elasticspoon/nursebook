@@ -107,7 +107,8 @@ guard 'livereload' do
 
   # file needing a full reload of the page anyway
 
-  watch(%r{app/assets/stylesheets.+\.{css|postcss}})
+  # watch(%r{app/assets/stylesheets.+\.{css|postcss}})
+  watch(%r{app/assets/builds/application.css})
   watch(%r{app/views/.+\.(#{rails_view_exts * '|'})$})
   watch(%r{app/components/.+\.(#{rails_view_exts * '|'})$})
   watch(%r{app/components/.+\.rb})
