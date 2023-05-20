@@ -4,6 +4,8 @@
   </p>
   <% if @images&.any? %>
     <%= image_tag @images.first.variant(:default), class: 'post__image' %>
+  <% end %>
+  <% if @images&.size > 1 %>
     <button class="button post__images-button" data-action="modal#show">
       <span><%= "Show #{@images.size - 1} more images..." %></span>
     </button>

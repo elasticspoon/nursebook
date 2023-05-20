@@ -25,11 +25,11 @@
           <%= form.label :images, class: 'new_post__upload-button' do %>
             <%= form.file_field :images, multiple: true, accept: '.jpg, .png, .jpeg',
               data: { placeholder: true, post_target: 'input'} %>
-            <%= inline_svg_tag 'question_mark.svg', class: 'new_post__preview-image' %>
+            <%= inline_svg_tag 'question_mark.svg', class: 'medium-svg button' %>
           <% end %>
         </div>
-        <div class="new_post__image-upload hidden" data-action="click->post#addUploadField" data-post-target="addUploadField">
-          <%= inline_svg_tag 'plus.svg', data: { post_target: 'image'} %>
+        <div class="new_post__image-upload hidden button" data-action="click->post#addUploadField" data-post-target="addUploadField">
+          <%= inline_svg_tag 'plus.svg', class: 'medium-svg', data: { post_target: 'image'} %>
         </div>
       </ul>
     </div>

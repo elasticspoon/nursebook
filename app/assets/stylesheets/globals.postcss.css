@@ -43,7 +43,7 @@ body {
   cursor: pointer;
 
   &:hover {
-    background-color: #4e4f50;
+    background-color: var(--background-highlight-1);
   }
 }
 
@@ -54,4 +54,8 @@ body {
 
 .min-svg {
   width: 20px;
+}
+
+.medium-svg {
+  width: 150px;
 }

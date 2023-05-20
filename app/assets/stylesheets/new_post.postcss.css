@@ -97,15 +97,23 @@
   grid-template-columns: repeat(1, minmax(0, 1fr));
   padding: 0;
   width: 450px;  
+  max-height: 350px;
   overflow-y: scroll;
 }
 
 .new_post__image-upload {
+  display: flex;
   border: solid black 2px;
   border-radius: 4px;
   padding: 4px;
   position: relative;
   max-height: 320px;
+  justify-content: center;
+
+}
+
+.new_post__image-upload--shrinkable {
+  height: 100%;
 }
 
 .new_post__upload-button {
@@ -113,6 +121,11 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  align-items: center;
+
+  &:hover {
+    background-color: var(--background-highlight-1);
+  }
 
   & .new_post__preview-image {
     postion: absolute;
@@ -155,5 +168,5 @@
   z-index: 30;
   rotate: 45deg;
   color: red;
-  border: 1px solid red; 
+  background-color: white;
 }
