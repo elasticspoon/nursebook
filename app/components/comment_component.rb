@@ -9,4 +9,8 @@ class CommentComponent < ViewComponent::Base
   def comment_age
     time_ago_in_words(@comment.created_at)
   end
+
+  def comment_author
+    @comment.creator.name
+  end
 end

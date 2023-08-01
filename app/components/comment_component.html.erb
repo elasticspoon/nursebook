@@ -3,13 +3,16 @@
     <div class="comment__user-avatar">
       <%= inline_svg_tag 'user_placeholder.svg', class: 'small_user__avatar' %>
     </div>
-    <div class="comment">
-      <%= @comment.content %>
-    </div>
-    <div class="comment__actions">
-      <%= link_to 'Like', not_implemented_path %>
-      <%= link_to 'Reply', not_implemented_path %>
-      <%= comment_age %>
+    <div>
+      <div class="comment__content">
+        <span class="comment__author"><%= comment_author %></span>
+        <span class="comment__text"><%= @comment.content %></span>
+      </div>
+      <div class="comment__actions">
+        <%= link_to 'Like', not_implemented_path %>
+        <%= link_to 'Reply', not_implemented_path %>
+        <%= comment_age %>
+      </div>
     </div>
   </div>
   <% unless @comment.comments.size.zero? %>

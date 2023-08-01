@@ -13,10 +13,14 @@
   <%= form.hidden_field :parent_id %>
   <%= form.hidden_field :parent_type %>
   <%# form.label :content, style: "display: block" %>
-  <%= form.text_field :content %>
-  <button class="comment-form__image-button comment-form__button"><%= inline_svg_tag 'cross.svg' %></button>
-  <%= form.button class: 'commment-form__button' do %>
-    <span>Submit</span>
-  <% end %>
+  <div class="comment-form__avatar">
+    <%= render(UserSmallComponent.new(user: current_user)) %>
+  </div>
+  <div class="comment-form__text_area" data-controller="button">
+    <%= form.text_area :content, placeholder: 'Write a comment...', data: { button_target: 'content', action: 'button#disableEmptyButton'} %>
+    <%= form.button class: 'comment-form__button button button--disabled', data: { button_target: 'button'}, disabled: true do %>
+      <%= inline_svg_tag 'send.svg' %>
+    <% end %>
+  </div>
 </div>
 <% end %>

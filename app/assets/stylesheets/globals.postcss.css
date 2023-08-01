@@ -46,6 +46,9 @@ body {
     background-color: var(--background-highlight-1);
   }
 }
+ .button--disabled {
+   fill: var(--disabled-button-background)
+ }
 
 .button--padded {
   padding: 8px;
